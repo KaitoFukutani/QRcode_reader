@@ -1,5 +1,8 @@
 extends ../layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  form.user_login
+    h1 User Login
+    input(type='text', placeholder='Username')
+    input(type='password', placeholder='Password')
+    button Login

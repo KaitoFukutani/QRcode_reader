@@ -1,8 +1,112 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+  margin:0;
+  padding:0;
+  border:none;
+  list-style:none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-a {
-  color: #00B7FF;
+body {
+  font:15px/1.25 'Alef';
+  color: #111;
+}
+
+.user_login {
+  margin:70px auto;
+  background: #abced8;
+  width:347px;
+  text-align:center;
+  padding:40px;
+}
+
+.admin_login {
+  margin:70px auto;
+  background: #cee4ae;
+  width:347px;
+  text-align:center;
+  padding:40px;
+}
+
+.user_login > h1 {
+  color: #f4f4f4;
+  text-shadow:1px 1px 0px rgba(0, 0, 0, 0.7);
+  font-weight:400;
+  margin-bottom:20px;
+}
+
+.admin_login > h1 {
+  color: #f4f4f4;
+  text-shadow:1px 1px 0px rgba(0, 0, 0, 0.7);
+  font-weight:400;
+  margin-bottom:20px;
+}
+
+.user_login > input {
+  background:rgba(0, 0, 0, 0.2);
+  color:#fff;
+  text-shadow:1px 1px 0px rgba(0, 0, 0,0.3);
+  display:block;
+  width:269px;
+  padding:15px;
+  margin-bottom:10px;
+  outline:none;
+}
+
+.admin_login > input {
+  background:rgba(0, 0, 0, 0.2);
+  color:#fff;
+  text-shadow:1px 1px 0px rgba(0, 0, 0,0.3);
+  display:block;
+  width:269px;
+  padding:15px;
+  margin-bottom:10px;
+  outline:none;
+}
+
+.user_login > input:focus {
+  background:rgba(0, 0, 0, 0.1);
+}
+
+.admin_login > input:focus {
+  background:rgba(0, 0, 0, 0.1);
+}
+
+.user_login > button {
+  position:relative;
+  display:block;
+  margin-top:15px;
+  margin-bottom:15px;
+  padding:17px;
+  width:270px;
+  font-size: 1.2em;
+  background: #95949a;
+  color: #f4f4f4;
+  box-shadow: 0px 3px 0px #858585;
+  cursor:pointer;
+}
+
+.admin_login > button {
+  position:relative;
+  display:block;
+  margin-top:15px;
+  margin-bottom:15px;
+  padding:17px;
+  width:270px;
+  font-size: 1.2em;
+  background: #95949a;
+  color: #f4f4f4;
+  box-shadow: 0px 3px 0px #858585;
+  cursor:pointer;
+}
+
+.user_login > button:active {
+  top:3px;
+  box-shadow:none;
+}
+
+.admin_login > button:active {
+  top:3px;
+  box-shadow:none;
 }
