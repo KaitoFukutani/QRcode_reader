@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const session = require('express-session');
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
@@ -29,6 +32,15 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
+// セッション設定
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: 'user',
+  httpOnly: true,
+  secure: false,
+}));
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -39,5 +51,17 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// ログイン認証
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy({
+  usernameField: 'username',
+  passwordField: 'password',
+  passReqToCallback: true,
+  session: true,
+}, (req, username, password, done) => {
+
+}));
 
 module.exports = app;
