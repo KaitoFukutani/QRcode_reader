@@ -1,9 +1,17 @@
 const express = require('express');
 const router = new express.Router();
 
-/* GET home page. */
+/* ログインページ */
 router.get('/login', function(req, res, next) {
-  res.render('user/login', {title: 'ユーザーログイン画面'});
+  res.render('user/login', {
+    title: 'user-login',
+  });
+});
+
+router.get('/create', function(req, res, next) {
+  res.render('user/user_create', {
+    title: 'user-create',
+  });
 });
 
 module.exports = router;

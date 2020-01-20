@@ -29,6 +29,14 @@ body {
   padding:40px;
 }
 
+.user_create {
+  margin:70px auto;
+  background: #abced8;
+  width:347px;
+  text-align:center;
+  padding:40px;
+}
+
 .user_login > h1 {
   color: #f4f4f4;
   text-shadow:1px 1px 0px rgba(0, 0, 0, 0.7);
@@ -37,6 +45,13 @@ body {
 }
 
 .admin_login > h1 {
+  color: #f4f4f4;
+  text-shadow:1px 1px 0px rgba(0, 0, 0, 0.7);
+  font-weight:400;
+  margin-bottom:20px;
+}
+
+.user_create > h1 {
   color: #f4f4f4;
   text-shadow:1px 1px 0px rgba(0, 0, 0, 0.7);
   font-weight:400;
@@ -65,11 +80,26 @@ body {
   outline:none;
 }
 
+.user_create > input {
+  background:rgba(0, 0, 0, 0.2);
+  color:#fff;
+  text-shadow:1px 1px 0px rgba(0, 0, 0,0.3);
+  display:block;
+  width:269px;
+  padding:15px;
+  margin-bottom:10px;
+  outline:none;
+}
+
 .user_login > input:focus {
   background:rgba(0, 0, 0, 0.1);
 }
 
 .admin_login > input:focus {
+  background:rgba(0, 0, 0, 0.1);
+}
+
+.user_create > input:focus {
   background:rgba(0, 0, 0, 0.1);
 }
 
@@ -101,12 +131,31 @@ body {
   cursor:pointer;
 }
 
+.user_create > button {
+  position:relative;
+  display:block;
+  margin-top:15px;
+  margin-bottom:15px;
+  padding:17px;
+  width:270px;
+  font-size: 1.2em;
+  background: #95949a;
+  color: #f4f4f4;
+  box-shadow: 0px 3px 0px #858585;
+  cursor:pointer;
+}
+
 .user_login > button:active {
   top:3px;
   box-shadow:none;
 }
 
 .admin_login > button:active {
+  top:3px;
+  box-shadow:none;
+}
+
+.user_create > button:active {
   top:3px;
   box-shadow:none;
 }
