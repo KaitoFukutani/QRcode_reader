@@ -13,7 +13,7 @@ body {
   color: #111;
 }
 
-.user_login {
+.user_signin {
   margin:70px auto;
   background: #abced8;
   width:347px;
@@ -21,7 +21,7 @@ body {
   padding:40px;
 }
 
-.admin_login {
+.admin_signin {
   margin:70px auto;
   background: #cee4ae;
   width:347px;
@@ -29,7 +29,7 @@ body {
   padding:40px;
 }
 
-.user_create {
+.user_signup {
   margin:70px auto;
   background: #abced8;
   width:347px;
@@ -37,28 +37,28 @@ body {
   padding:40px;
 }
 
-.user_login > h1 {
+.user_signin > h1 {
   color: #f4f4f4;
   text-shadow:1px 1px 0px rgba(0, 0, 0, 0.7);
   font-weight:400;
   margin-bottom:20px;
 }
 
-.admin_login > h1 {
+.admin_signin > h1 {
   color: #f4f4f4;
   text-shadow:1px 1px 0px rgba(0, 0, 0, 0.7);
   font-weight:400;
   margin-bottom:20px;
 }
 
-.user_create > h1 {
+.user_signup > h1 {
   color: #f4f4f4;
   text-shadow:1px 1px 0px rgba(0, 0, 0, 0.7);
   font-weight:400;
   margin-bottom:20px;
 }
 
-.user_login > input {
+.user_signin > input {
   background:rgba(0, 0, 0, 0.2);
   color:#fff;
   text-shadow:1px 1px 0px rgba(0, 0, 0,0.3);
@@ -69,7 +69,7 @@ body {
   outline:none;
 }
 
-.admin_login > input {
+.admin_signin > input {
   background:rgba(0, 0, 0, 0.2);
   color:#fff;
   text-shadow:1px 1px 0px rgba(0, 0, 0,0.3);
@@ -80,7 +80,7 @@ body {
   outline:none;
 }
 
-.user_create > input {
+.user_signup > input {
   background:rgba(0, 0, 0, 0.2);
   color:#fff;
   text-shadow:1px 1px 0px rgba(0, 0, 0,0.3);
@@ -91,19 +91,19 @@ body {
   outline:none;
 }
 
-.user_login > input:focus {
+.user_signin > input:focus {
   background:rgba(0, 0, 0, 0.1);
 }
 
-.admin_login > input:focus {
+.admin_signin > input:focus {
   background:rgba(0, 0, 0, 0.1);
 }
 
-.user_create > input:focus {
+.user_signup > input:focus {
   background:rgba(0, 0, 0, 0.1);
 }
 
-.user_login > button {
+.user_signin > button {
   position:relative;
   display:block;
   margin-top:15px;
@@ -117,7 +117,7 @@ body {
   cursor:pointer;
 }
 
-.admin_login > button {
+.admin_signin > button {
   position:relative;
   display:block;
   margin-top:15px;
@@ -131,7 +131,7 @@ body {
   cursor:pointer;
 }
 
-.user_create > button {
+.user_signup > button {
   position:relative;
   display:block;
   margin-top:15px;
@@ -145,17 +145,37 @@ body {
   cursor:pointer;
 }
 
-.user_login > button:active {
+.user_signin > button:active {
   top:3px;
   box-shadow:none;
 }
 
-.admin_login > button:active {
+.admin_signin > button:active {
   top:3px;
   box-shadow:none;
 }
 
-.user_create > button:active {
+.user_signup > button:active {
+  top:3px;
+  box-shadow:none;
+}
+
+.user_create {
+  text-decoration: none;
+  position:relative;
+  display:block;
+  margin-top:15px;
+  margin-bottom:15px;
+  padding:17px;
+  width:270px;
+  font-size: 1.2em;
+  background: #95949a;
+  color: #f4f4f4;
+  box-shadow: 0px 3px 0px #858585;
+  cursor:pointer;
+}
+
+.user_create:active {
   top:3px;
   box-shadow:none;
 }

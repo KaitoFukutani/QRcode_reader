@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+  form.user_signin
+    h1 User Signin
+    input(type='email', placeholder='Email', required)
+    input(type='password', placeholder='Password', required)
+    button Signin
+    a.user_create(href='/user/create') Signup

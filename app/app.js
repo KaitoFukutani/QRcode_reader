@@ -61,7 +61,7 @@ passport.use(new LocalStrategy({
   passReqToCallback: true,
   session: true,
 }, (req, username, password, done) => {
-  // login処理記載
+  // signin処理記載
 }));
 
 module.exports = app;
