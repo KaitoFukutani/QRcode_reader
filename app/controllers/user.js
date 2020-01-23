@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const log4js = require('log4js');
+const logMsg = require('log4js').getLogger('categories');
 const msg = require('../logger/ message');
 const User = require('../models').user;
 
@@ -12,7 +12,7 @@ exports.addUser = (req) => {
     }).then((data) => {
       resolve(data);
     }).catch((err) => {
-      log.error('Database ERROR: ' + err);
+      logMsg.error(msg.DB_ERROR1 + err);
       reject(err);
     });
   });
