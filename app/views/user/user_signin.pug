@@ -1,9 +1,9 @@
 extends ../layout
 
 block content
-  form.user_signin
+  form.user_signin(method='POST', action='/user/signin')
     h1 User Signin
-    input(type='email', placeholder='Email', required)
-    input(type='password', placeholder='Password', required)
-    button Signin
+    input(type='email', placeholder='Email', name='email', required)
+    input(type='password', placeholder='Password', name='password', required)
+    button(type='submit') Signin
     a.user_create(href='/user/create') Signup

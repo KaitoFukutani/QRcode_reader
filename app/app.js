@@ -6,10 +6,12 @@ const logger = require('morgan');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
+const fetch = require('node-fetch');
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
+const dbRouter = require('./server/database/db_access');
 
 const app = express();
 
@@ -26,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
+app.use('/db', dbRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -54,14 +57,22 @@ app.use(function(err, req, res, next) {
 
 // ログイン認証
 app.use(passport.initialize());
-app.use(passport.session());
 passport.use(new LocalStrategy({
-  usernameField: 'username',
+  usernameField: 'email',
   passwordField: 'password',
-  passReqToCallback: true,
-  session: true,
-}, (req, username, password, done) => {
-  // signin処理記載
+}, (email, password, done) => {
+  fetch('http://localhost:3000/db/signin', {
+    method: 'POST',
+    body: JSON.stringify({
+      email: email,
+      password: password
+    }),
+    headers: {'Content-Type': 'application/json'},
+  }).then((data) => {
+
+  }).catch(() => {
+
+  });
 }));
 
 module.exports = app;
