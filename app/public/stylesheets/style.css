@@ -110,7 +110,7 @@ body {
   margin-bottom:15px;
   padding:17px;
   width:270px;
-  font-size: 1.2em;
+  font-size: 20px;
   background: #95949a;
   color: #f4f4f4;
   box-shadow: 0px 3px 0px #858585;
@@ -124,7 +124,7 @@ body {
   margin-bottom:15px;
   padding:17px;
   width:270px;
-  font-size: 1.2em;
+  font-size: 20px;
   background: #95949a;
   color: #f4f4f4;
   box-shadow: 0px 3px 0px #858585;
@@ -138,7 +138,7 @@ body {
   margin-bottom:15px;
   padding:17px;
   width:270px;
-  font-size: 1.2em;
+  font-size: 20px;
   background: #95949a;
   color: #f4f4f4;
   box-shadow: 0px 3px 0px #858585;
@@ -168,7 +168,7 @@ body {
   margin-bottom:15px;
   padding:17px;
   width:270px;
-  font-size: 1.2em;
+  font-size: 20px;
   background: #95949a;
   color: #f4f4f4;
   box-shadow: 0px 3px 0px #858585;
@@ -178,4 +178,11 @@ body {
 .user_create:active {
   top:3px;
   box-shadow:none;
+}
+
+/* error */
+.user_signup > .error {
+  color: #e03434;
+  text-shadow:1px 1px 0px rgba(0, 0, 0, 0.7);
+  margin-bottom: 20px;
 }

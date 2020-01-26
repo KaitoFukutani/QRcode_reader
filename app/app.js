@@ -11,6 +11,7 @@ const fetch = require('node-fetch');
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
+const signupRouter = require('./routes/user_signup');
 const dbRouter = require('./server/database/db_access');
 
 const app = express();
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
+app.use('/user_signup', signupRouter);
 app.use('/db', dbRouter);
 
 // catch 404 and forward to error handler
