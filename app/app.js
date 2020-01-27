@@ -67,7 +67,7 @@ passport.use(new LocalStrategy({
     method: 'POST',
     body: JSON.stringify({
       email: email,
-      password: password
+      password: password,
     }),
     headers: {'Content-Type': 'application/json'},
   }).then((data) => {
