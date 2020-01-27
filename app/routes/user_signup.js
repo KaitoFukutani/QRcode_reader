@@ -27,11 +27,7 @@ router.post('/', function(req, res, next) {
           email: req.body.email,
           password: bcrypt.encrypt(req.body.password),
         };
-        console.log('==================');
-        console.log(insertData);
-        console.log(bcrypt.decrypt("kaito0924", insertData.password));
-        console.log('==================');
-        await userController.addUser(req.body);
+        await userController.addUser(insertData);
         res.redirect('/user/signin');
       } else {
         systemLogger.error(msg.ERROR1);

@@ -5,6 +5,7 @@ const User = require('../models').user;
 
 exports.addUser = (req) => {
   return new Promise((resolve, reject) => {
+    console.log(req);
     User.create({
       name: req.name,
       email: req.email,

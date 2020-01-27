@@ -16,10 +16,14 @@ services:
     container_name: mysql
     ports:
       - "3306:3306"
+    volumes:
+      - ./docker/mysql/db/mysql_data:/var/lib/mysql
+      - ./docker/mysql/db/my.cnf:/etc/mysql/conf.d/my.cnf
     environment:
-      MYSQL_ROOT_PASSWORD: mysql
       MYSQL_DATABASE: node_project
-      MYSQL_PASSWORD: mysql
+      MYSQL_USER: node_project
+      MYSQL_ROOT_PASSWORD: A3mFp9RKF3
+      MYSQL_PASSWORD: Crni793ScH
       TZ: 'Asia/Tokyo'
 
   # nginx

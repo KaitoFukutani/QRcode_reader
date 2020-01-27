@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "root",
-    "password": "mysql",
+    "username": "node_project",
+    "password": "Crni793ScH",
     "database": "node_project",
     "host": "mysql",
     "port": "3306",
