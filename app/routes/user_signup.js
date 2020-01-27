@@ -7,7 +7,7 @@ const validation = require('../server/util/validation');
 const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
-
+const bcrypt = require('../server/util/bcrypt');
 
 // ユーザー作成ページ
 router.get('/', function(req, res, next) {
@@ -22,6 +22,15 @@ router.post('/', function(req, res, next) {
     if (validation.new(req.body)) {
       const check = await userController.addCheck(req.body);
       if (check.length == 0) {
+        const insertData = {
+          name: req.body.name,
+          email: req.body.email,
+          password: bcrypt.encrypt(req.body.password),
+        };
+        console.log('==================');
+        console.log(insertData);
+        console.log(bcrypt.decrypt("kaito0924", insertData.password));
+        console.log('==================');
         await userController.addUser(req.body);
         res.redirect('/user/signin');
       } else {
