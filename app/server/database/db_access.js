@@ -6,13 +6,17 @@ const systemLogger = log4js.getLogger('system');
 const usersController = require('../../controllers/user');
 const userAttendanceController = require('../../controllers/user_attendance');
 
-// ユーザーログイン認証
+// ログイン認証ユーザー取得
 router.post('/signin', (req, res, next) => {
-  console.log('================');
-  console.log(req);
-  console.log('================');
-  systemLogger.info(msg.ACCESS1);
-
+  (async (req) => {
+    systemLogger.info(msg.ACCESS1);
+    usersController.userCheck(req.body).then((data) => {
+      res.send(data);
+    }).catch((err) => {
+      systemLogger.error(msg.DB_ERROR2 + err);
+      res.send(err);
+    });
+  })(req);
 });
 
 module.exports = router;

@@ -7,6 +7,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const fetch = require('node-fetch');
+const log4js = require('log4js');
+const msg = require('./logger/message');
+const systemLogger = log4js.getLogger('system');
+const bcrypt = require('./server/util/bcrypt');
+require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
@@ -71,9 +76,49 @@ passport.use(new LocalStrategy({
     }),
     headers: {'Content-Type': 'application/json'},
   }).then((data) => {
-
-  }).catch(() => {
-
+    return data.json();
+  }).then((result) => {
+    if (result.length != 0) {
+      result = result[0];
+      if (
+        result.password &&
+        bcrypt.decrypt(password, result.password)
+      ) {
+        // ログインユーザーがマスターアカウントだった場合
+        if (result.email == process.env.MASTER_EMAIL) {
+          systemLogger.info(msg.INFO1);
+          return done(null, {
+            name: result.name,
+            email: result.email,
+            id: result.id,
+            status: 'master',
+          });
+        // ログインユーザーが一般ユーザーだった場合
+        } else {
+          systemLogger.info(msg.INFO2);
+          return done(null, {
+            name: result.name,
+            email: result.email,
+            id: result.id,
+            status: 'user',
+          });
+        }
+      } else {
+        // password不一致
+        systemLogger.error(msg.ERROR3);
+        return done(null, false, {
+          message: 'パスワードが正しくありません。',
+        });
+      }
+    } else {
+      // 該当ユーザー無し
+      systemLogger.error(msg.ERROR3);
+      return done(null, false, {
+        message: 'メールアドレスが正しくありません。',
+      });
+    }
+  }).catch((err) => {
+    systemLogger.error(msg.ERROR2 + err);
   });
 }));
 

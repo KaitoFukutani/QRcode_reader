@@ -13,7 +13,7 @@ router.get('/signin', function(req, res, next) {
 
 // 管理者ログイン
 router.post('/signin', passport.authenticate('local', {
-  successRedirect: '/admin/signin',
+  successRedirect: '/user/signin',
   failureRedirect: '/admin/signin',
   session: true,
 }));

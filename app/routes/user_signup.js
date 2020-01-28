@@ -20,8 +20,8 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   (async () => {
     if (validation.new(req.body)) {
-      const check = await userController.addCheck(req.body);
-      if (check.length == 0) {
+      const check = await userController.userCheck(req.body);
+      if (check) {
         const insertData = {
           name: req.body.name,
           email: req.body.email,

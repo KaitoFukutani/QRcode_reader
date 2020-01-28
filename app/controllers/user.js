@@ -18,7 +18,7 @@ exports.addUser = (req) => {
   });
 };
 
-exports.addCheck = (req) => {
+exports.userCheck = (req) => {
   return new Promise((resolve, reject) => {
     User.findAll({
       where: {
