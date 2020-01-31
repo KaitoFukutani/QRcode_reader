@@ -7,6 +7,7 @@ const validation = require('../server/util/validation');
 const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
+const isGuestAuthenticated = require('../server/util/guest_authenticated');
 
 // ユーザーログインページ
 router.get('/signin', function(req, res, next) {
@@ -17,9 +18,15 @@ router.get('/signin', function(req, res, next) {
 
 // ユーザーログイン
 router.post('/signin', passport.authenticate('local', {
-  successRedirect: '/user/signin',
+  successRedirect: '/user/home',
   failureRedirect: '/user/signin',
   session: true,
 }));
+
+router.get('/home', isGuestAuthenticated, function(req, res, next) {
+  res.render('user/user_home', {
+    title: 'user-home',
+  });
+});
 
 module.exports = router;

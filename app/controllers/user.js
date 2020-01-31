@@ -27,7 +27,22 @@ exports.userCheck = (req) => {
     }).then((data) => {
       resolve(data);
     }).catch((err) => {
-      systemLogger.error(logMsg.ERR_5 + err);
+      systemLogger.error(msg.ERR_5 + err);
+      reject(err);
+    });
+  });
+};
+
+exports.loginCheck = (req) => {
+  return new Promise((resolve, reject) => {
+    User.findAll({
+      where: {
+        email: req,
+      },
+    }).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      systemLogger.error(msg.ERR_5 + err);
       reject(err);
     });
   });

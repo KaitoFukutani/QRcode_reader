@@ -3,6 +3,7 @@ const router = new express.Router();
 const userController = require('../controllers/user');
 const userAttendanceController = require('../controllers/user_attendance');
 const passport = require('passport');
+const isMasterAuthenticated = require('../server/util/master_authenticated');
 
 // 管理者ログインページ
 router.get('/signin', function(req, res, next) {
@@ -13,9 +14,15 @@ router.get('/signin', function(req, res, next) {
 
 // 管理者ログイン
 router.post('/signin', passport.authenticate('local', {
-  successRedirect: '/user/signin',
+  successRedirect: '/admin/home',
   failureRedirect: '/admin/signin',
   session: true,
 }));
+
+router.get('/home', isMasterAuthenticated, function(req, res, next) {
+  res.render('admin/admin_home', {
+    title: 'user-admin',
+  });
+});
 
 module.exports = router;
