@@ -2,13 +2,11 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
 const log4js = require('log4js');
 const msg = require('./logger/message');
-const systemLogger = log4js.getLogger('system');
 const bcrypt = require('./server/util/bcrypt');
 const usersController = require('./controllers/user');
 require('dotenv').config();
@@ -21,11 +19,16 @@ const dbRouter = require('./server/database/db_access');
 
 const app = express();
 
+// log4js設定
+log4js.configure('./log-config.json');
+const logger = log4js.getLogger('system');
+const systemLogger = log4js.getLogger('system');
+app.use(log4js.connectLogger(logger, {level: 'auto'}));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());

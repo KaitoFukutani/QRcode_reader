@@ -7,7 +7,7 @@ const validation = require('../server/util/validation');
 const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
-const isGuestAuthenticated = require('../server/util/guest_authenticated');
+const isUserAuthenticated = require('../server/util/user_authenticated');
 
 // ユーザーログインページ
 router.get('/signin', function(req, res, next) {
@@ -23,7 +23,7 @@ router.post('/signin', passport.authenticate('local', {
   session: true,
 }));
 
-router.get('/home', isGuestAuthenticated, function(req, res, next) {
+router.get('/home', isUserAuthenticated, function(req, res, next) {
   res.render('user/user_home', {
     title: 'user-home',
   });
