@@ -11,6 +11,7 @@ const isUserAuthenticated = require('../server/util/user_authenticated');
 
 // ユーザーログインページ
 router.get('/signin', function(req, res, next) {
+  systemLogger.info(msg.ACCESS1);
   res.render('user/user_signin', {
     title: 'user-signin',
   });
@@ -23,10 +24,20 @@ router.post('/signin', passport.authenticate('local', {
   session: true,
 }));
 
+// ユーザートップページ
 router.get('/home', isUserAuthenticated, function(req, res, next) {
+  systemLogger.info(msg.ACCESS3);
   res.render('user/user_home', {
     title: 'user-home',
   });
+});
+
+// ユーザーログアウト
+router.get('/logout', (req, res) => {
+  if (req.user.passport) {
+    delete req.session.passport;
+  }
+  res.redirect('/');
 });
 
 module.exports = router;

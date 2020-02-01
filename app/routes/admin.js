@@ -7,6 +7,7 @@ const isMasterAuthenticated = require('../server/util/master_authenticated');
 
 // 管理者ログインページ
 router.get('/signin', function(req, res, next) {
+  systemLogger.info(msg.ACCESS1);
   res.render('admin/admin_signin', {
     title: 'admin-signin',
   });
@@ -19,10 +20,20 @@ router.post('/signin', passport.authenticate('local', {
   session: true,
 }));
 
+// 管理者トップページ
 router.get('/home', isMasterAuthenticated, function(req, res, next) {
+  systemLogger.info(msg.ACCESS3);
   res.render('admin/admin_home', {
     title: 'user-admin',
   });
+});
+
+// 管理者ログアウト
+router.get('/logout', (req, res) => {
+  if (req.user.passport) {
+    delete req.session.passport;
+  }
+  res.redirect('/');
 });
 
 module.exports = router;

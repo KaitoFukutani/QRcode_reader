@@ -11,6 +11,7 @@ const bcrypt = require('../server/util/bcrypt');
 
 // ユーザー作成ページ
 router.get('/', function(req, res, next) {
+  systemLogger.info(msg.ACCESS2);
   res.render('user/user_signup', {
     title: 'user_signup',
   });
@@ -46,4 +47,4 @@ router.post('/', function(req, res, next) {
   })();
 });
 
-  module.exports = router;
+module.exports = router;

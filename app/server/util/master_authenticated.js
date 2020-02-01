@@ -1,8 +1,8 @@
 const log4js = require('log4js');
-// const logMsg = require('../../logger/message');
+const msg = require('../../logger/message');
 
-// // Log出力タイプ
-// const systemLogger = log4js.getLogger('system');
+// Log出力タイプ
+const systemLogger = log4js.getLogger('system');
 
 /**
  * ログイン状態チェック関数
@@ -12,13 +12,15 @@ const log4js = require('log4js');
  * @return {object}
  */
 function isAuthenticated(req, res, next) {
-  if (req.isAuthenticated() && req.user.status == 'master') {
-    // systemLogger.info(logMsg.INFO_7 + req.user.email);
-    if (req.user.auth == req.session.passport.user.auth) {
-      return next();
-    }
+  if (
+    req.isAuthenticated() &&
+    req.user.status == 'user' &&
+    req.user.email == req.session.passport.user.email
+  ) {
+    systemLogger.info(msg.ERROR3 + req.user.email);
+    return next();
   } else {
-    res.redirect('/master/logout');
+    res.redirect('/admin/logout');
   }
 }
 
