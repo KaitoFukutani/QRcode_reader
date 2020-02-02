@@ -5,32 +5,32 @@ const validation = require('../server/util/validation');
 const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
-const isMasterAuthenticated = require('../server/util/master_authenticated');
+const isReaderAuthenticated = require('../server/util/reader_authenticated');
 
-// 管理者ログインページ
+// QRログインページ
 router.get('/signin', function(req, res, next) {
   systemLogger.info(msg.ACCESS1);
-  res.render('admin/admin_signin', {
-    title: 'admin-signin',
+  res.render('reader/reader_signin', {
+    title: 'reader-signin',
   });
 });
 
-// 管理者ログイン
+// QRログイン
 router.post('/signin', passport.authenticate('local', {
-  successRedirect: '/admin/home',
-  failureRedirect: '/admin/signin',
+  successRedirect: '/reader/home',
+  failureRedirect: '/reader/signin',
   session: true,
 }));
 
-// 管理者トップページ
-router.get('/home', isMasterAuthenticated, function(req, res, next) {
+// QRトップページ
+router.get('/home', isReaderAuthenticated, function(req, res, next) {
   systemLogger.info(msg.ACCESS3);
-  res.render('admin/admin_home', {
-    title: 'admin-home',
+  res.render('reader/reader_home', {
+    title: 'reader-reader',
   });
 });
 
-// 管理者ログアウト
+// QRログアウト
 router.get('/logout', (req, res) => {
   if (req.user.passport) {
     delete req.session.passport;

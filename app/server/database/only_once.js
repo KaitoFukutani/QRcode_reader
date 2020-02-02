@@ -31,5 +31,27 @@ User.findAll({
   console.error(err);
 });
 
+console.log('%%%%%%%%%%%%%%%%%');
+console.log(process.env.READER_EMAIL);
+console.log('%%%%%%%%%%%%%%%%%');
+// マスターカウントがなかったらインサート
+User.findAll({
+  where: {
+    email: process.env.READER_EMAIL,
+  },
+}).then((data) => {
+  if (data.length == 0) {
+    User.create({
+      name: process.env.READER_EMAIL,
+      email: process.env.READER_EMAIL,
+      password: bcrypt.encrypt(process.env.READER_PASS),
+      admin_flg: 0,
+      reading_machine: 1,
+    });
+  }
+}).catch((err) => {
+  console.error(err);
+});
+
 systemLogger.info(msg.INFO_5);
 systemLogger.info('*************************');

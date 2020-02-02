@@ -14,6 +14,7 @@ require('dotenv').config();
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const adminRouter = require('./routes/admin');
+const readerRouter = require('./routes/reader');
 const signupRouter = require('./routes/user_signup');
 const dbRouter = require('./server/database/db_access');
 
@@ -76,6 +77,16 @@ passport.use(new LocalStrategy({
                 id: result.id,
                 status: 'master',
               });
+            // ログインユーザーがQRreaderだった場合
+            } else if (result.email == process.env.READER_EMAIL) {
+              console.log('reader^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+              systemLogger.info(msg.INFO1);
+              return done(null, {
+                name: result.name,
+                email: result.email,
+                id: result.id,
+                status: 'reader',
+              });
             // ログインユーザーが一般ユーザーだった場合
             } else {
               systemLogger.info(msg.INFO2);
@@ -114,6 +125,7 @@ app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/admin', adminRouter);
 app.use('/user_signup', signupRouter);
+app.use('/reader', readerRouter);
 app.use('/db', dbRouter);
 
 // catch 404 and forward to error handler
