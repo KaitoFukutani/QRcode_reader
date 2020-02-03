@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  button(type='button', onclick='openWebcam(event)').qr_in 出勤
+  button(type='button', onclick='openWebcam(event)').qr_out 退勤
+  #pane-webcam
+    video(name='video', style='max-height:300px; display: none;', autoplay='')
+    canvas(name='canvas', style='max-height: 300px; display: none;')

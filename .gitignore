@@ -1,0 +1,6 @@
+.env
+.DS_Store
+.vscode
+docker/mysql/db/mysql_data/*
+logs
+*node_modules/

@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  // Page Content
+  #header-area
+    include ../utils/user_header.pug
+  block content
+    h1 #{user_id}
+    button(type='button', onclick='createQrCode(\''+user_id+'\')').qr_in 出勤
+    button(type='button', onclick='createQrCode()').qr_out 退勤
