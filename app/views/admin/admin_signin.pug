@@ -1,8 +1,0 @@
-extends ../layout
-
-block content
-  form.admin_signin(method='POST', action='/admin/signin')
-    h1 Admin Signin
-    input(type='email', placeholder='Email', name='email', required)
-    input(type='password', placeholder='Password', name='password', required)
-    button(type='submit') Signin
