@@ -69,7 +69,10 @@ passport.use(new LocalStrategy({
             bcrypt.decrypt(password, result.password)
           ) {
             // ログインユーザーがマスターアカウントだった場合
-            if (result.email == process.env.MASTER_EMAIL) {
+            if (
+              result.email == process.env.MASTER_EMAIL &&
+              result.admin_flg == 1
+            ) {
               systemLogger.info(msg.INFO1);
               return done(null, {
                 name: result.name,
@@ -78,9 +81,11 @@ passport.use(new LocalStrategy({
                 status: 'master',
               });
             // ログインユーザーがQRreaderだった場合
-            } else if (result.email == process.env.READER_EMAIL) {
-              console.log('reader^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-              systemLogger.info(msg.INFO1);
+            } else if (
+              result.email == process.env.READER_EMAIL &&
+              result.reading_machine == 1
+            ) {
+              systemLogger.info(msg.INFO3);
               return done(null, {
                 name: result.name,
                 email: result.email,

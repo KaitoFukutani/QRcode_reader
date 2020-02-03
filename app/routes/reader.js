@@ -35,7 +35,7 @@ router.get('/logout', (req, res) => {
   if (req.user.passport) {
     delete req.session.passport;
   }
-  res.redirect('/');
+  res.redirect('/signin');
 });
 
 module.exports = router;

@@ -326,4 +326,49 @@ nav {
 	-ms-flex-direction: row;
 }
 
-.logo-erea{text-align:center;margin:auto;}
+.logo-erea{
+  text-align:center;margin:auto;
+}
+
+/* reader */
+.qr_in {
+  position:relative;
+  display:block;
+  margin-top:15px;
+  margin-bottom:15px;
+  padding:17px;
+  width:270px;
+  font-size: 20px;
+  background: #c5b9ff;
+  color: #f4f4f4;
+  box-shadow: 0px 3px 0px #858585;
+  cursor:pointer;
+  float: left;
+}
+.qr_in:active {
+  top:3px;
+  box-shadow:none;
+}
+
+.qr_out {
+  position:relative;
+  display:block;
+  margin-top:15px;
+  margin-bottom:15px;
+  padding:17px;
+  width:270px;
+  font-size: 20px;
+  background: #ffb2b6;
+  color: #f4f4f4;
+  box-shadow: 0px 3px 0px #858585;
+  cursor:pointer;
+  float: right;
+}
+.qr_out:active {
+  top:3px;
+  box-shadow:none;
+}
+
+#pane-webcam {
+  text-align:center
+}

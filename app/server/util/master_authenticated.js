@@ -14,7 +14,7 @@ const systemLogger = log4js.getLogger('system');
 function isAuthenticated(req, res, next) {
   if (
     req.isAuthenticated() &&
-    req.user.status == 'user' &&
+    req.user.status == 'master' &&
     req.user.email == req.session.passport.user.email
   ) {
     systemLogger.info(msg.ERROR3 + req.user.email);
