@@ -6,6 +6,7 @@ const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
 const isUserAuthenticated = require('../server/util/user_authenticated');
+const qrCreate = require('../public/javascript/create_qrcode');
 
 // ユーザーログインページ
 router.get('/signin', function(req, res, next) {
@@ -33,10 +34,27 @@ router.get('/home', isUserAuthenticated, function(req, res, next) {
 // QRコード生成ページ
 router.get('/create_qr', isUserAuthenticated, function(req, res, next) {
   systemLogger.info(msg.ACCESS4);
-  console.log(req.session.passport)
   res.render('user/user_createqr', {
     title: 'create-qrcode',
     user_id: req.user.id,
+  });
+});
+
+router.get('/user_inqr', isUserAuthenticated, function(req, res, next) {
+  systemLogger.info(msg.ACCESS4);
+  const qrcode = qrCreate.createQrCode(req.user.id, 'in');
+  res.render('user/user_qrcode', {
+    title: 'qrcode',
+    QRcode: qrcode,
+  });
+});
+
+router.get('/user_outqr', isUserAuthenticated, function(req, res, next) {
+  systemLogger.info(msg.ACCESS4);
+  const qrcode = qrCreate.createQrCode(req.user.id, 'out');
+  res.render('user/user_qrcode', {
+    title: 'qrcode',
+    QRcode: qrcode,
   });
 });
 

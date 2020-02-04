@@ -5,6 +5,4 @@ block content
   #header-area
     include ../utils/user_header.pug
   block content
-    h1 #{user_id}
-    a.in_qr(href='/user/user_inqr') IN
-    a.out_qr(href='/user/user_outqr') OUT
+    img(src='/tmp/' + QRcode)

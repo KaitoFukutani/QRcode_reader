@@ -3,4 +3,4 @@
 .vscode
 docker/mysql/db/mysql_data/*
 logs
-*node_modules/
+*/node_modules/
