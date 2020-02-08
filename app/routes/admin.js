@@ -32,10 +32,8 @@ router.get('/home', isMasterAuthenticated, function(req, res, next) {
 
 // 管理者ログアウト
 router.get('/logout', (req, res) => {
-  if (req.user.passport) {
-    delete req.session.passport;
-  }
-  res.redirect('/signin');
+  req.logout();
+  res.redirect('admin/signin');
 });
 
 module.exports = router;

@@ -60,10 +60,8 @@ router.get('/user_outqr', isUserAuthenticated, function(req, res, next) {
 
 // ユーザーログアウト
 router.get('/logout', (req, res) => {
-  if (req.user.passport) {
-    delete req.session.passport;
-  }
-  res.redirect('/signin');
+  req.logout();
+  res.redirect('user/signin');
 });
 
 module.exports = router;

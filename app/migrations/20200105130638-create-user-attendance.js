@@ -14,9 +14,25 @@ module.exports = {
       attendance_date: {
         type: Sequelize.DATE,
       },
+      in_flg: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      out_flg: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      delay_flg: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
       absence_flg: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
+      },
+      absence_reason: {
+        type: Sequelize.STRING,
+        defaultValue: '',
       },
       created_at: {
         allowNull: false,

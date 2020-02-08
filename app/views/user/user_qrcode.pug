@@ -2,7 +2,7 @@ extends ../layout
 
 block content
   // Page Content
-  #header-area
-    include ../utils/user_header.pug
   block content
+    a(href='/user/home')
+      img.folder-icon(src='/image/back.png')
     img(src='/tmp/' + QRcode)

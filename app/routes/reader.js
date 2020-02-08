@@ -32,10 +32,8 @@ router.get('/home', isReaderAuthenticated, function(req, res, next) {
 
 // QRログアウト
 router.get('/logout', (req, res) => {
-  if (req.user.passport) {
-    delete req.session.passport;
-  }
-  res.redirect('/signin');
+  req.logout();
+  res.redirect('reader/signin');
 });
 
 module.exports = router;
