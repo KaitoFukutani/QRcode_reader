@@ -33,7 +33,7 @@ router.get('/home', isMasterAuthenticated, function(req, res, next) {
 // 管理者ログアウト
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('admin/signin');
+  res.redirect('/admin/signin');
 });
 
 module.exports = router;

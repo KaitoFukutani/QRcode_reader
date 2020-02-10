@@ -33,7 +33,7 @@ router.get('/home', isReaderAuthenticated, function(req, res, next) {
 // QRログアウト
 router.get('/logout', (req, res) => {
   req.logout();
-  res.redirect('reader/signin');
+  res.redirect('/reader/signin');
 });
 
 module.exports = router;

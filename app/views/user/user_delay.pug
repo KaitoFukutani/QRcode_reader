@@ -4,3 +4,8 @@ block content
   // Page Content
   #header-area
     include ../utils/user_header.pug
+
+    p 遅刻
+    form(action='/user/add_delay', method='POST')
+      textarea
+      button(type="submit") 登録
