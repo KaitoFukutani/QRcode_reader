@@ -44,4 +44,9 @@ router.post('/add_absence', (req, res, next) => {
   res.send(result);
 });
 
+// ログイン認証ユーザー取得
+router.post('/test', (req, res, next) => {
+  res.send({result: 'success'});
+});
+
 module.exports = router;

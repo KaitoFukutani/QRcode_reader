@@ -37,24 +37,68 @@ function snapshot({video, canvas, ctx}) { // eslint-disable-line
       return self.snapshot({video, canvas, ctx});
     }, 800);
   } else {
-    if (data) {
-      const message = data.data;
-      console.log('message:', message);
-    }
-    self.stopWebcam({video, canvas, ctx});
+    // self.stopWebcam({video, canvas, ctx});
+    let timerInterval;
+    fetch('/db/test', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+    }).then((res) => {
+      console.log(res);
+      return res.json();
+    }).then((result) => {
+      let icon;
+      let title;
+      if (result.result == 'success') {
+        icon = 'success';
+        title = '登録が完了しました。';
+      } else if (result.result == 'error') {
+        icon = 'question';
+        title = '登録に失敗しました。';
+      } else if (result.result == 'warning') {
+        icon = 'warning';
+        title = '登録済みです。';
+      }
+      Swal.fire({
+        title: title,
+        timer: 2000,
+        icon: icon,
+        onBeforeOpen: () => {
+          Swal.showLoading();
+          timerInterval = setInterval(() => {
+            const content = Swal.getContent();
+            if (content) {
+              const b = content.querySelector('b');
+              if (b) {
+                b.textContent = Swal.getTimerLeft();
+              }
+            }
+          }, 100);
+        },
+        onClose: () => {
+          clearInterval(timerInterval);
+        },
+      }).then((result) => {
+        /* Read more about handling dismissals below */
+        if (result.dismiss === Swal.DismissReason.timer) {
+          return self.snapshot({video, canvas, ctx});
+        }
+      });
+    });
   }
 }
 
-/**
- * @description Webカメラの停止処理
- */
-function stopWebcam({ video, canvas, ctx}) { // eslint-disable-line
-  if (!video) {
-    video = $('[name=video]')[0];
-  }
-  video.pause();
-  stream = video.srcObject;
-  stream.getTracks().forEach((track) => track.stop());
-  video.src = '';
-  $(video).hide();
-}
+// /**
+//  * @description Webカメラの停止処理
+//  */
+// function stopWebcam({ video, canvas, ctx}) { // eslint-disable-line
+//   if (!video) {
+//     video = $('[name=video]')[0];
+//   }
+//   video.pause();
+//   stream = video.srcObject;
+//   stream.getTracks().forEach((track) => track.stop());
+//   video.src = '';
+//   $(video).hide();
+// }
