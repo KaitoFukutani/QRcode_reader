@@ -31,7 +31,6 @@ function AddDelayModal() { // eslint-disable-line
         'error',
     );
   } else {
-
     fetch('/db/add_delay', {
       method: 'POST',
       headers: {
@@ -43,16 +42,16 @@ function AddDelayModal() { // eslint-disable-line
       }),
     }).then((res) => {
       Swal.fire(
-        'Good job!',
-        'You clicked the button!',
-        'success',
-    );
+          'Good job!',
+          'You clicked the button!',
+          'success',
+      );
     }).catch((err) => {
       Swal.fire(
-        'Good job!',
-        'You clicked the button!',
-        'error',
-    );
+          'Good job!',
+          'You clicked the button!',
+          'error',
+      );
     });
   }
 }
@@ -101,16 +100,16 @@ function AddAbsenceModal() { // eslint-disable-line
       }),
     }).then((res) => {
       Swal.fire(
-        'Good job!',
-        'You clicked the button!',
-        'success',
-    );
+          'Good job!',
+          'You clicked the button!',
+          'success',
+      );
     }).catch((err) => {
       Swal.fire(
-        'Good job!',
-        'You clicked the button!',
-        'error',
-    );
+          'Good job!',
+          'You clicked the button!',
+          'error',
+      );
     });
   }
 }

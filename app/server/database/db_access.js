@@ -4,7 +4,6 @@ const log4js = require('log4js');
 const msg = require('../../logger/message');
 const systemLogger = log4js.getLogger('system');
 const usersController = require('../../controllers/users');
-// const userAttendanceController = require('../../controllers/user_attendance');
 const userDelayController = require('../../controllers/user_delay');
 const userAbsenceController = require('../../controllers/user_absence');
 

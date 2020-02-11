@@ -1,8 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const usersController = require('../controllers/users');
-const userAttendanceController = require('../controllers/user_attendance');
-const passport = require('passport');
+// const userAttendanceController = require('../controllers/user_attendance');
 const validation = require('../server/util/validation');
 const log4js = require('log4js');
 const msg = require('../logger/message');
