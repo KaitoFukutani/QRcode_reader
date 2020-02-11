@@ -1,7 +1,8 @@
 'use strict';
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('user_attendances', {
+    return queryInterface.createTable('user_absence', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,16 +12,11 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
       },
-      attendance_date: {
-        type: Sequelize.DATE,
-      },
-      in_flg: {
+      absence_flg: {
         type: Sequelize.INTEGER,
-        defaultValue: 0,
       },
-      out_flg: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
+      absence_reason: {
+        type: Sequelize.TEXT,
       },
       created_at: {
         allowNull: false,
@@ -34,7 +30,8 @@ module.exports = {
       },
     });
   },
+
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('user_attendances');
+    return queryInterface.dropTable('user_absence');
   },
 };
