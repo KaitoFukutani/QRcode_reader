@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     out_flg: DataTypes.INTEGER,
   }, {
     underscored: true,
+    freezeTableName: true,
   });
   user_attendance.associate = function(models) {
     // associations can be defined here
