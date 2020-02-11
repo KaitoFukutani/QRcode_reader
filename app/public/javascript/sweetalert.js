@@ -42,14 +42,14 @@ function AddDelayModal() { // eslint-disable-line
       }),
     }).then((res) => {
       Swal.fire(
-          'Good job!',
-          'You clicked the button!',
+          'SUCCESS',
+          '遅刻の登録が完了しました。',
           'success',
       );
     }).catch((err) => {
       Swal.fire(
-          'Good job!',
-          'You clicked the button!',
+          'ERROR',
+          '予期せぬエラーが発生しました。',
           'error',
       );
     });
@@ -100,14 +100,14 @@ function AddAbsenceModal() { // eslint-disable-line
       }),
     }).then((res) => {
       Swal.fire(
-          'Good job!',
-          'You clicked the button!',
+          'SUCCESS',
+          '欠席の登録が完了しました。',
           'success',
       );
     }).catch((err) => {
       Swal.fire(
-          'Good job!',
-          'You clicked the button!',
+          'ERROR',
+          '予期せぬエラーが発生しました。',
           'error',
       );
     });
