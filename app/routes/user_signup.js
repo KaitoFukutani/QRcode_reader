@@ -1,6 +1,6 @@
 const express = require('express');
 const router = new express.Router();
-const userController = require('../controllers/user');
+const usersController = require('../controllers/users');
 const userAttendanceController = require('../controllers/user_attendance');
 const passport = require('passport');
 const validation = require('../server/util/validation');
@@ -21,14 +21,14 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   (async () => {
     if (validation.new(req.body)) {
-      const check = await userController.userCheck(req.body);
+      const check = await usersController.userCheck(req.body);
       if (check) {
         const insertData = {
           name: req.body.name,
           email: req.body.email,
           password: bcrypt.encrypt(req.body.password),
         };
-        await userController.addUser(insertData);
+        await usersController.addUser(insertData);
         res.redirect('/user/signin');
       } else {
         systemLogger.error(msg.ERROR1);

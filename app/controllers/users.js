@@ -1,11 +1,11 @@
 const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
-const User = require('../models').user;
+const Users = require('../models').users;
 
 exports.addUser = (req) => {
   return new Promise((resolve, reject) => {
-    User.create({
+    Users.create({
       name: req.name,
       email: req.email,
       password: req.password,
@@ -20,7 +20,7 @@ exports.addUser = (req) => {
 
 exports.userCheck = (req) => {
   return new Promise((resolve, reject) => {
-    User.findAll({
+    Users.findAll({
       where: {
         email: req.email,
       },
@@ -35,7 +35,7 @@ exports.userCheck = (req) => {
 
 exports.loginCheck = (req) => {
   return new Promise((resolve, reject) => {
-    User.findAll({
+    Users.findAll({
       where: {
         email: req,
       },

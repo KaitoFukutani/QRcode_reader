@@ -9,14 +9,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      user_id: {
+        type: Sequelize.INTEGER,
+      },
       delay_flg: {
         type: Sequelize.INTEGER,
       },
       delay_reason: {
         type: Sequelize.TEXT,
       },
-      user_id: {
-        type: Sequelize.INTEGER,
+      delay_date: {
+        allowNull: false,
+        type: Sequelize.DATE,
+
       },
       created_at: {
         allowNull: false,

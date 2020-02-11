@@ -27,6 +27,7 @@
     "qrcode": "^1.4.4",
     "sequelize": "^5.11.0",
     "sequelize-cli": "^5.5.0",
+    "sweetalert2": "^9.7.2",
     "validator": "^12.2.0"
   },
   "devDependencies": {

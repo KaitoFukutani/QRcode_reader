@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define('user', {
+  const users = sequelize.define('users', {
     name: DataTypes.STRING,
     password: DataTypes.STRING,
     email: DataTypes.STRING,
@@ -8,18 +8,19 @@ module.exports = (sequelize, DataTypes) => {
     reading_machine: DataTypes.INTEGER,
   }, {
     underscored: true,
+    freezeTableName: true,
   });
-  user.associate = function(models) {
+  users.associate = function(models) {
     // associations can be defined here
-    user.hasMany(models.user_attendance, {
+    users.hasMany(models.user_attendance, {
       foreignKey: 'user_id',
     });
-    user.hasMany(models.user_delay, {
+    users.hasMany(models.user_delay, {
       foreignKey: 'user_id',
     });
-    user.hasMany(models.user_absence, {
+    users.hasMany(models.user_absence, {
       foreignKey: 'user_id',
     });
   };
-  return user;
+  return users;
 };

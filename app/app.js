@@ -8,7 +8,7 @@ const session = require('express-session');
 const log4js = require('log4js');
 const msg = require('./logger/message');
 const bcrypt = require('./server/util/bcrypt');
-const usersController = require('./controllers/user');
+const usersController = require('./controllers/users');
 require('dotenv').config();
 
 const indexRouter = require('./routes/index');
@@ -29,6 +29,8 @@ app.use(log4js.connectLogger(logger, {level: 'auto'}));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+app.use('/sweetalert2', express.static(path.join(__dirname, '/node_modules/sweetalert2/dist/')));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));

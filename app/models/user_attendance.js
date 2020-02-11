@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   user_attendance.associate = function(models) {
     // associations can be defined here
-    user_attendance.belongsTo(models.user, {
+    user_attendance.belongsTo(models.users, {
       foreignKey: 'user_id',
       targetKey: 'id',
     });

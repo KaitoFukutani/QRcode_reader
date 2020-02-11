@@ -43,7 +43,7 @@ exports.addAbsence = (req) => {
       }
       resolve(data);
     }).catch((err) => {
-      systemLogger.error(msg.ERR_5 + err);
+      systemLogger.error(msg.DB_ERROR2 + err);
       reject(err);
     });
   });

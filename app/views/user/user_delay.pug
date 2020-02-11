@@ -7,5 +7,7 @@ block content
 
     p 遅刻
     form(action='/user/add_delay', method='POST')
-      textarea
-      button(type="submit") 登録
+      textarea#delay_reason(name='reason' type='textarea' placeholder="遅刻理由" onKeyUp="countLength(value, 'textlength2')")
+      p#textlength2 0/100文字
+      input#delay_date(name='date' type='date')
+      button(type="button" onclick='AddDelayModal()') 登録

@@ -1,24 +1,24 @@
 const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
-const UserAbsence = require('../models').user_absence;
+const UserDelay = require('../models').user_delay;
 
-exports.addAbsence = (req) => {
+exports.addDelay = (req) => {
   return new Promise((resolve, reject) => {
-    UserAbsence.findAll({
+    UserDelay.findAll({
       where: {
         user_id: req.id,
-        absence_date: req.date,
+        delay_date: req.date,
       },
     }).then((data) => {
       systemLogger.info(msg.DB_INFO2);
       if (data.length > 0) {
-        UserAbsence.update({
-          absence_reason: req.reason,
+        UserDelay.update({
+          delay_reason: req.reason,
         }, {
           where: {
             user_id: req.id,
-            absence_date: req.date,
+            delay_date: req.date,
           },
         }).then((data) => {
           systemLogger.info(msg.DB_INFO3);
@@ -28,11 +28,11 @@ exports.addAbsence = (req) => {
           reject(err);
         });
       } else {
-        UserAbsence.create({
+        UserDelay.create({
           user_id: req.id,
-          absence_flg: 1,
-          absence_reason: req.reason,
-          absence_date: req.date,
+          delay_flg: 1,
+          delay_reason: req.reason,
+          delay_date: req.date,
         }).then((data) => {
           systemLogger.info(msg.DB_INFO1);
           resolve(data);

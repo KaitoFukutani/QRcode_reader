@@ -18,6 +18,10 @@ module.exports = {
       absence_reason: {
         type: Sequelize.TEXT,
       },
+      absence_date: {
+        allowNull: false,
+        type: Sequelize.DATE,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,

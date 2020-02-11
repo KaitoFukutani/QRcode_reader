@@ -61,7 +61,7 @@ router.get('/user_outqr', isUserAuthenticated, function(req, res, next) {
 });
 
 // 遅刻登録ページ
-router.get('/delay', function(req, res, next) {
+router.get('/delay', isUserAuthenticated, function(req, res, next) {
   systemLogger.info(msg.ACCESS6);
   res.render('user/user_delay', {
     title: 'user-delay',
@@ -69,27 +69,9 @@ router.get('/delay', function(req, res, next) {
 });
 
 // 欠席登録ページ
-router.get('/absence', function(req, res, next) {
+router.get('/absence', isUserAuthenticated, function(req, res, next) {
   systemLogger.info(msg.ACCESS7);
-  res.render('user/user_abscece', {
-    title: 'user-abscece',
-  });
-});
-
-// 遅刻登録
-router.post('/add_delay', function(req, res, next) {
-  systemLogger.info(msg.ACCESS6);
-  console.log(req.body);
-  res.render('user/user_delay', {
-    title: 'user-delay',
-  });
-});
-
-// 欠席登録
-router.post('/add_absence', function(req, res, next) {
-  systemLogger.info(msg.ACCESS7);
-  console.log(req.body);
-  res.render('user/user_abscece', {
+  res.render('user/user_absence', {
     title: 'user-abscece',
   });
 });

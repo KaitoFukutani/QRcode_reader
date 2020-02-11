@@ -3,8 +3,10 @@ const router = new express.Router();
 const log4js = require('log4js');
 const msg = require('../../logger/message');
 const systemLogger = log4js.getLogger('system');
-const usersController = require('../../controllers/user');
-const userAttendanceController = require('../../controllers/user_attendance');
+const usersController = require('../../controllers/users');
+// const userAttendanceController = require('../../controllers/user_attendance');
+const userDelayController = require('../../controllers/user_delay');
+const userAbsenceController = require('../../controllers/user_absence');
 
 // ログイン認証ユーザー取得
 router.post('/signin', (req, res, next) => {
@@ -17,6 +19,30 @@ router.post('/signin', (req, res, next) => {
       res.send(err);
     });
   })(req);
+});
+
+// ログイン認証ユーザー取得
+router.post('/add_delay', (req, res, next) => {
+  const delay = {
+    reason: req.body.reason,
+    date: req.body.date,
+    id: req.user.id,
+  };
+  const result = userDelayController.addDelay(delay);
+  console.log(delay);
+  res.send(result);
+});
+
+// ログイン認証ユーザー取得
+router.post('/add_absence', (req, res, next) => {
+  const absence = {
+    reason: req.body.reason,
+    date: req.body.date,
+    id: req.user.id,
+  };
+  const result = userAbsenceController.addAbsence(absence);
+  console.log(absence);
+  res.send(result);
 });
 
 module.exports = router;
