@@ -374,3 +374,8 @@ nav {
   top:3px;
   box-shadow:none;
 }
+
+video {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}

@@ -80,7 +80,6 @@ function snapshot({video, canvas, ctx}) { // eslint-disable-line
           clearInterval(timerInterval);
         },
       }).then((result) => {
-        /* Read more about handling dismissals below */
         if (result.dismiss === Swal.DismissReason.timer) {
           return self.snapshot({video, canvas, ctx});
         }
