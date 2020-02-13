@@ -1,10 +1,11 @@
 const QRCode = require('qrcode');
+require('dotenv').config();
 
 exports.createQrCode = (id, status) => {
   const day = new Date();
   const fileName = id + '-' + day.getTime() + '.png';
   const insertData = {
-    day: day,
+    key: process.env.QR_KEY,
     id: id,
     status: status,
   };

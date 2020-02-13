@@ -31,34 +31,46 @@ function snapshot({video, canvas, ctx}) { // eslint-disable-line
   if (!video.srcObject.active) return;
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const data = jsQR(imageData.data, imageData.width, imageData.height);
-  if (!data) {
+  const QRdata = jsQR(imageData.data, imageData.width, imageData.height);
+  if (!QRdata) {
     setTimeout(() => {
       return self.snapshot({video, canvas, ctx});
     }, 800);
   } else {
     // self.stopWebcam({video, canvas, ctx});
     let timerInterval;
-    fetch('/db/test', {
+    fetch('/db/add_attendance', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
       },
+      body: JSON.stringify({
+        QRdata: QRdata,
+      }),
     }).then((res) => {
       console.log(res);
       return res.json();
     }).then((result) => {
       let icon;
       let title;
+      let sound;
+      let soundFlg = 0;
       if (result.result == 'success') {
         icon = 'success';
         title = '登録が完了しました。';
+        sound = new Audio('../sound/success.mp3');
       } else if (result.result == 'error') {
-        icon = 'question';
+        icon = 'error';
         title = '登録に失敗しました。';
+        sound = new Audio('../sound/error.mp3');
       } else if (result.result == 'warning') {
         icon = 'warning';
         title = '登録済みです。';
+        sound = new Audio('../sound/warning.mp3');
+      } else if (result.result == 'question') {
+        icon = 'question';
+        title = '不明なQRコードです。';
+        sound = new Audio('../sound/question.mp3');
       }
       Swal.fire({
         title: title,
@@ -68,13 +80,17 @@ function snapshot({video, canvas, ctx}) { // eslint-disable-line
           Swal.showLoading();
           timerInterval = setInterval(() => {
             const content = Swal.getContent();
+            if (!soundFlg) {
+              sound.play();
+              soundFlg = 1;
+            }
             if (content) {
               const b = content.querySelector('b');
               if (b) {
                 b.textContent = Swal.getTimerLeft();
               }
             }
-          }, 100);
+          }, 200);
         },
         onClose: () => {
           clearInterval(timerInterval);

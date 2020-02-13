@@ -1,49 +1,52 @@
 const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
-const UserAbsence = require('../models').user_absence;
+const UserAttendance = require('../models').user_attendance;
+const Sequelize = require('sequelize');
+const op = Sequelize.Op;
 
-exports.addAbsence = (req) => {
+exports.addAttendance = (req) => {
   return new Promise((resolve, reject) => {
-    UserAbsence.findAll({
+    const dt = new Date();
+    dt.setHours(dt.getHours() + 9);
+    const y = dt.getFullYear();
+    const m = ('00' + (dt.getMonth()+1)).slice(-2);
+    const d = ('00' + dt.getDate()).slice(-2);
+    const date = y + '-' + m + '-' + d;
+    let inFlg;
+    let outFlg;
+    if (req.status == 'in') {
+      inFlg = 1;
+      outFlg = 0;
+    } else if (req.status == 'out') {
+      inFlg = 0;
+      outFlg = 1;
+    }
+    UserAttendance.findAll({
       where: {
         user_id: req.id,
-        absence_date: req.date,
+        in_flg: inFlg,
+        out_flg: outFlg,
+        attendance_date: {
+          [op.gt]: date,
+        },
       },
     }).then((data) => {
-      systemLogger.info(msg.DB_INFO2);
-      if (data.length > 0) {
-        UserAbsence.update({
-          absence_reason: req.reason,
-        }, {
-          where: {
-            user_id: req.id,
-            absence_date: req.date,
-          },
+      if (!data.length) {
+        UserAttendance.create({
+          user_id: req.id,
+          attendance_date: dt,
+          in_flg: inFlg,
+          out_flg: outFlg,
         }).then((data) => {
-          systemLogger.info(msg.DB_INFO3);
-          resolve(data);
+          resolve({result: 'success'});
         }).catch((err) => {
-          systemLogger.error(msg.DB_ERROR3 + err);
           reject(err);
         });
       } else {
-        UserAbsence.create({
-          user_id: req.id,
-          absence_flg: 1,
-          absence_reason: req.reason,
-          absence_date: req.date,
-        }).then((data) => {
-          systemLogger.info(msg.DB_INFO1);
-          resolve(data);
-        }).catch((err) => {
-          systemLogger.error(msg.DB_ERROR1 + err);
-          reject(err);
-        });
+        resolve({result: 'warning'});
       }
-      resolve(data);
     }).catch((err) => {
-      systemLogger.error(msg.ERR_5 + err);
       reject(err);
     });
   });

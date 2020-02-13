@@ -4,8 +4,10 @@ const log4js = require('log4js');
 const msg = require('../../logger/message');
 const systemLogger = log4js.getLogger('system');
 const usersController = require('../../controllers/users');
+const userAttendanceController = require('../../controllers/user_attendance');
 const userDelayController = require('../../controllers/user_delay');
 const userAbsenceController = require('../../controllers/user_absence');
+require('dotenv').config();
 
 // ログイン認証ユーザー取得
 router.post('/signin', (req, res, next) => {
@@ -20,7 +22,7 @@ router.post('/signin', (req, res, next) => {
   })(req);
 });
 
-// ログイン認証ユーザー取得
+// 遅刻登録
 router.post('/add_delay', (req, res, next) => {
   const delay = {
     reason: req.body.reason,
@@ -32,7 +34,7 @@ router.post('/add_delay', (req, res, next) => {
   res.send(result);
 });
 
-// ログイン認証ユーザー取得
+// 欠席登録
 router.post('/add_absence', (req, res, next) => {
   const absence = {
     reason: req.body.reason,
@@ -44,9 +46,23 @@ router.post('/add_absence', (req, res, next) => {
   res.send(result);
 });
 
-// ログイン認証ユーザー取得
-router.post('/test', (req, res, next) => {
-  res.send({result: 'success'});
+// 出欠データ登録
+router.post('/add_attendance', (req, res, next) => {
+  (async (req) => {
+    const QRdata = JSON.parse(req.body.QRdata.data);
+    if (
+      typeof QRdata.key != 'undefined' &&
+      QRdata.key == process.env.QR_KEY
+    ) {
+      await userAttendanceController.addAttendance(QRdata).then((data) => {
+        res.send(data);
+      }).catch((err) => {
+        res.send({result: 'error'});
+      });
+    } else {
+      res.send({result: 'question'});
+    }
+  })(req);
 });
 
 module.exports = router;
