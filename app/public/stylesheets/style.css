@@ -429,16 +429,16 @@ td.is-disabled {
 }
 
 #come:hover {
-  background-color: rgba(67, 255, 130, 0.1);
+  background-color: rgba(0, 255, 85, 0.2);
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
 }
 
 #delay:hover {
-  background-color: rgba(246, 255, 67, 0.1);
+  background-color: rgba(242, 255, 2, 0.2);
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
 }
 
 #absence:hover {
-  background-color: rgba(255, 67, 67, 0.1);
+  background-color: rgba(255, 0, 0, 0.2);
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
 }
