@@ -54,15 +54,19 @@ exports.addAttendance = (req) => {
 
 // userの出席状況取得
 exports.getAttendance = (req) => {
+  const year = req.body.year;
+  const month = (req.body.month.length > 1)?req.body.month.length: '0' + req.body.month;
+  const date = String(year) + String(month);
   return new Promise((resolve, reject) => {
     UserAttendance.findAll({
       where: {
-        user_id: req.id,
+        user_id: req.user.id,
+        attendance_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('attendance_date'), '%Y%m'), date),
       },
     }).then((result) => {
       resolve(result);
     }).catch((err) => {
-      systemLogger.console.error(msg.DB_ERROR2);
+      systemLogger.error(msg.DB_ERROR2 + err);
       reject(err);
     });
   });

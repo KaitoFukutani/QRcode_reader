@@ -2,6 +2,7 @@ const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
 const UserAbsence = require('../models').user_absence;
+const Sequelize = require('sequelize');
 
 exports.addAbsence = (req) => {
   return new Promise((resolve, reject) => {
@@ -50,16 +51,20 @@ exports.addAbsence = (req) => {
 };
 
 // userの欠席状況取得
-exports.UserAbsence = (req) => {
+exports.getAbsence = (req) => {
+  const year = req.body.year;
+  const month = (req.body.month.length > 1)?req.body.month.length: '0' + req.body.month;
+  const date = String(year) + String(month);
   return new Promise((resolve, reject) => {
-    UserDelay.findAll({
+    UserAbsence.findAll({
       where: {
-        user_id: req.id,
+        user_id: req.user.id,
+        absence_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('absence_date'), '%Y%m'), date),
       },
     }).then((result) => {
       resolve(result);
     }).catch((err) => {
-      systemLogger.console.error(msg.DB_ERROR2);
+      systemLogger.error(msg.DB_ERROR2 + err);
       reject(err);
     });
   });

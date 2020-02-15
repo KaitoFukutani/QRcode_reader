@@ -68,17 +68,14 @@ router.post('/addattendance', (req, res, next) => {
 // 出欠データ取得
 router.post('/getattendance', (req, res, next) => {
   (async (req) => {
-    const attendanceData = await userAttendanceController.getAttendance(req.user.id);
-    const delayData = await userDelayController.getDelay(req.user.id);
-    const absenceData = await userAbsenceController.getAbsence(req.user.id);
+    const attendanceData = await userAttendanceController.getAttendance(req);
+    const delayData = await userDelayController.getDelay(req);
+    const absenceData = await userAbsenceController.getAbsence(req);
     const userData = {
       attendanceData: attendanceData,
       delayData: delayData,
       absenceData: absenceData,
     };
-    console.log('=========');
-    console.log(userData);
-    console.log('=========');
     res.send(userData);
   })(req);
 });

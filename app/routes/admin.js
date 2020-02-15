@@ -9,10 +9,12 @@ const isMasterAuthenticated = require('../server/util/master_authenticated');
 
 // 管理者ログインページ
 router.get('/signin', function(req, res, next) {
-  systemLogger.info(msg.ACCESS1);
-  res.render('admin/admin_signin', {
-    title: 'admin-signin',
-  });
+  (async () => {
+    systemLogger.info(msg.ACCESS1);
+    res.render('admin/admin_signin', {
+      title: 'admin-signin',
+    });
+  })();
 });
 
 // 管理者ログイン
@@ -24,16 +26,20 @@ router.post('/signin', passport.authenticate('local', {
 
 // 管理者トップページ
 router.get('/home', isMasterAuthenticated, function(req, res, next) {
-  systemLogger.info(msg.ACCESS3);
-  res.render('admin/admin_home', {
-    title: 'admin-home',
-  });
+  (async () => {
+    systemLogger.info(msg.ACCESS3);
+    res.render('admin/admin_home', {
+      title: 'admin-home',
+    });
+  })();
 });
 
 // 管理者ログアウト
 router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/admin/signin');
+  (async () => {
+    req.logout();
+    res.redirect('/admin/signin');
+  })();
 });
 
 module.exports = router;

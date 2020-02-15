@@ -9,10 +9,12 @@ const isReaderAuthenticated = require('../server/util/reader_authenticated');
 
 // QRログインページ
 router.get('/signin', function(req, res, next) {
-  systemLogger.info(msg.ACCESS1);
-  res.render('reader/reader_signin', {
-    title: 'reader-signin',
-  });
+  (async () => {
+    systemLogger.info(msg.ACCESS1);
+    res.render('reader/reader_signin', {
+      title: 'reader-signin',
+    });
+  })();
 });
 
 // QRログイン
@@ -24,16 +26,20 @@ router.post('/signin', passport.authenticate('local', {
 
 // QRトップページ
 router.get('/home', isReaderAuthenticated, function(req, res, next) {
-  systemLogger.info(msg.ACCESS3);
-  res.render('reader/reader_home', {
-    title: 'reader-reader',
-  });
+  (async () => {
+    systemLogger.info(msg.ACCESS3);
+    res.render('reader/reader_home', {
+      title: 'reader-reader',
+    });
+  })();
 });
 
 // QRログアウト
 router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/reader/signin');
+  (async () => {
+    req.logout();
+    res.redirect('/reader/signin');
+  })();
 });
 
 module.exports = router;

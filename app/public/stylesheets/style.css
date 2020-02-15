@@ -415,3 +415,15 @@ td:last-child {
 td.is-disabled {
   color: #ccc;
 }
+
+#come {
+  background-color: rgba(67, 255, 130, 0.1);
+}
+
+#delay {
+  background-color: rgba(246, 255, 67, 0.1);
+}
+
+#absence {
+  background-color: rgba(255, 67, 67, 0.1);
+}

@@ -50,7 +50,6 @@ function snapshot({video, canvas, ctx}) { // eslint-disable-line
         QRdata: QRdata,
       }),
     }).then((res) => {
-      console.log(res);
       return res.json();
     }).then((result) => {
       let icon;
