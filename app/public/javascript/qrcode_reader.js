@@ -37,9 +37,11 @@ function snapshot({video, canvas, ctx}) { // eslint-disable-line
       return self.snapshot({video, canvas, ctx});
     }, 800);
   } else {
+    // webカメラ停止処理呼び出し
+    // 連続して読み込むため使用していない
     // self.stopWebcam({video, canvas, ctx});
     let timerInterval;
-    fetch('/db/add_attendance', {
+    fetch('/db/addattendance', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -105,7 +107,7 @@ function snapshot({video, canvas, ctx}) { // eslint-disable-line
 }
 
 // /**
-//  * @description Webカメラの停止処理
+//  * @description Webカメラの停止処理。連続して読み込むため使用していない。
 //  */
 // function stopWebcam({ video, canvas, ctx}) { // eslint-disable-line
 //   if (!video) {

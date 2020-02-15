@@ -4,7 +4,8 @@
           "type":     "dateFile",
           "filename": "./logs/system.log",
           "maxLogSize": "5000000",
-          "backups": "5"
+          "backups": "10",
+          "compress": "true"
       },
       "console": {
           "type": "console"

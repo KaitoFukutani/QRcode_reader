@@ -23,7 +23,7 @@ router.post('/signin', (req, res, next) => {
 });
 
 // 遅刻登録
-router.post('/add_delay', (req, res, next) => {
+router.post('/adddelay', (req, res, next) => {
   const delay = {
     reason: req.body.reason,
     date: req.body.date,
@@ -35,7 +35,7 @@ router.post('/add_delay', (req, res, next) => {
 });
 
 // 欠席登録
-router.post('/add_absence', (req, res, next) => {
+router.post('/addabsence', (req, res, next) => {
   const absence = {
     reason: req.body.reason,
     date: req.body.date,
@@ -47,7 +47,7 @@ router.post('/add_absence', (req, res, next) => {
 });
 
 // 出欠データ登録
-router.post('/add_attendance', (req, res, next) => {
+router.post('/addattendance', (req, res, next) => {
   (async (req) => {
     const QRdata = JSON.parse(req.body.QRdata.data);
     if (
@@ -62,6 +62,24 @@ router.post('/add_attendance', (req, res, next) => {
     } else {
       res.send({result: 'question'});
     }
+  })(req);
+});
+
+// 出欠データ取得
+router.post('/getattendance', (req, res, next) => {
+  (async (req) => {
+    const attendanceData = await userAttendanceController.getAttendance(req.user.id);
+    const delayData = await userDelayController.getDelay(req.user.id);
+    const absenceData = await userAbsenceController.getAbsence(req.user.id);
+    const userData = {
+      attendanceData: attendanceData,
+      delayData: delayData,
+      absenceData: absenceData,
+    };
+    console.log('=========');
+    console.log(userData);
+    console.log('=========');
+    res.send(userData);
   })(req);
 });
 

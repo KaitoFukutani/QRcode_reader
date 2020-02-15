@@ -48,3 +48,19 @@ exports.addDelay = (req) => {
     });
   });
 };
+
+// userの遅刻状況取得
+exports.getDelay = (req) => {
+  return new Promise((resolve, reject) => {
+    UserDelay.findAll({
+      where: {
+        user_id: req.id,
+      },
+    }).then((result) => {
+      resolve(result);
+    }).catch((err) => {
+      systemLogger.console.error(msg.DB_ERROR2);
+      reject(err);
+    });
+  });
+};

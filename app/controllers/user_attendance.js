@@ -51,3 +51,20 @@ exports.addAttendance = (req) => {
     });
   });
 };
+
+// userの出席状況取得
+exports.getAttendance = (req) => {
+  return new Promise((resolve, reject) => {
+    UserAttendance.findAll({
+      where: {
+        user_id: req.id,
+      },
+    }).then((result) => {
+      resolve(result);
+    }).catch((err) => {
+      systemLogger.console.error(msg.DB_ERROR2);
+      reject(err);
+    });
+  });
+};
+

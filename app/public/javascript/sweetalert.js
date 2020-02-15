@@ -31,7 +31,7 @@ function AddDelayModal() { // eslint-disable-line
         'error',
     );
   } else {
-    fetch('/db/add_delay', {
+    fetch('/db/adddelay', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -89,7 +89,7 @@ function AddAbsenceModal() { // eslint-disable-line
         'error',
     );
   } else {
-    fetch('/db/add_absence', {
+    fetch('/db/addabsence', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',

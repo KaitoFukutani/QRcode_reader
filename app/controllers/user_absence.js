@@ -48,3 +48,19 @@ exports.addAbsence = (req) => {
     });
   });
 };
+
+// userの欠席状況取得
+exports.UserAbsence = (req) => {
+  return new Promise((resolve, reject) => {
+    UserDelay.findAll({
+      where: {
+        user_id: req.id,
+      },
+    }).then((result) => {
+      resolve(result);
+    }).catch((err) => {
+      systemLogger.console.error(msg.DB_ERROR2);
+      reject(err);
+    });
+  });
+};
