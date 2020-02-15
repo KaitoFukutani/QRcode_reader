@@ -427,3 +427,18 @@ td.is-disabled {
 #absence {
   background-color: rgba(255, 67, 67, 0.1);
 }
+
+#come:hover {
+  background-color: rgba(67, 255, 130, 0.1);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+#delay:hover {
+  background-color: rgba(246, 255, 67, 0.1);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+#absence:hover {
+  background-color: rgba(255, 67, 67, 0.1);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+}
