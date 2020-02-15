@@ -4,6 +4,7 @@ const systemLogger = log4js.getLogger('system');
 const UserDelay = require('../models').user_delay;
 const Sequelize = require('sequelize');
 
+// 遅刻登録
 exports.addDelay = (req) => {
   return new Promise((resolve, reject) => {
     UserDelay.findAll({

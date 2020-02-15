@@ -4,6 +4,7 @@ const systemLogger = log4js.getLogger('system');
 const UserAbsence = require('../models').user_absence;
 const Sequelize = require('sequelize');
 
+// 欠席登録
 exports.addAbsence = (req) => {
   return new Promise((resolve, reject) => {
     UserAbsence.findAll({

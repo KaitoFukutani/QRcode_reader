@@ -5,6 +5,7 @@ const validation = require('../server/util/validation');
 const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
+const usersController = require('../controllers/users');
 const isMasterAuthenticated = require('../server/util/master_authenticated');
 
 // 管理者ログインページ
@@ -27,9 +28,14 @@ router.post('/signin', passport.authenticate('local', {
 // 管理者トップページ
 router.get('/home', isMasterAuthenticated, function(req, res, next) {
   (async () => {
+    const userList = await usersController.getUser();
+    console.log('==============')
+    console.log(userList)
+    console.log('==============')
     systemLogger.info(msg.ACCESS3);
     res.render('admin/admin_home', {
       title: 'admin-home',
+      users: userList,
     });
   })();
 });

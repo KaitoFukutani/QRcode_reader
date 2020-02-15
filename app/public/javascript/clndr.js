@@ -8,7 +8,6 @@ let absenceList = {};
 
 
 /**
- * @description 読み込んだストリームからスナップショットを取得＆解析
  * @param {number} year
  * @param {number} month
  * @param {object} userData
@@ -26,7 +25,6 @@ function showCalendar(year, month, userData) {
 }
 
 /**
- * @description 読み込んだストリームからスナップショットを取得＆解析
  * @param {number} year
  * @param {number} month
   * @param {object} userData
@@ -121,12 +119,12 @@ function createCalendar(year, month, userData) {
 }
 
 /**
- * @description 読み込んだストリームからスナップショットを取得＆解析
  * @param {event} e
  */
 function moveCalendar(e) {
   comeList = {};
-  delayList = {};absenceList = {};
+  delayList = {};
+  absenceList = {};
   document.querySelector('#calendar').innerHTML = '';
   if (e.target.id === 'prev') {
     month--;
@@ -186,7 +184,6 @@ document.addEventListener('click', function(e) {
 });
 
 /**
- * @description 読み込んだストリームからスナップショットを取得＆解析
  * @param {number} year
  * @param {number} month
  */

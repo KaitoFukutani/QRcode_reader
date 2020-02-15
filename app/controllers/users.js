@@ -3,6 +3,7 @@ const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
 const Users = require('../models').users;
 
+// ユーザ登録
 exports.addUser = (req) => {
   return new Promise((resolve, reject) => {
     Users.create({
@@ -18,6 +19,7 @@ exports.addUser = (req) => {
   });
 };
 
+// ユーザ存在チェック
 exports.userCheck = (req) => {
   return new Promise((resolve, reject) => {
     Users.findAll({
@@ -33,12 +35,26 @@ exports.userCheck = (req) => {
   });
 };
 
+// ログインチェック
 exports.loginCheck = (req) => {
   return new Promise((resolve, reject) => {
     Users.findAll({
       where: {
         email: req,
       },
+    }).then((data) => {
+      resolve(data);
+    }).catch((err) => {
+      systemLogger.error(msg.ERR_5 + err);
+      reject(err);
+    });
+  });
+};
+
+// ユーザ情報取得
+exports.getUser = () => {
+  return new Promise((resolve, reject) => {
+    Users.findAll({
     }).then((data) => {
       resolve(data);
     }).catch((err) => {

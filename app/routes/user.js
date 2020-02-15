@@ -6,9 +6,6 @@ const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
 const isUserAuthenticated = require('../server/util/user_authenticated');
-const userAttendanceController = require('../controllers/user_attendance');
-const userDelayController = require('../controllers/user_delay');
-const userAbsenceController = require('../controllers/user_absence');
 const qrCreate = require('../public/javascript/create_qrcode');
 
 // ユーザーログインページ

@@ -5,6 +5,7 @@ const UserAttendance = require('../models').user_attendance;
 const Sequelize = require('sequelize');
 const op = Sequelize.Op;
 
+// 出欠情報登録
 exports.addAttendance = (req) => {
   return new Promise((resolve, reject) => {
     const dt = new Date();
