@@ -1,7 +1,6 @@
 const express = require('express');
 const router = new express.Router();
 const passport = require('passport');
-const validation = require('../server/util/validation');
 const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
@@ -29,14 +28,26 @@ router.post('/signin', passport.authenticate('local', {
 router.get('/home', isMasterAuthenticated, function(req, res, next) {
   (async () => {
     const userList = await usersController.getUser();
-    console.log('==============')
-    console.log(userList)
-    console.log('==============')
     systemLogger.info(msg.ACCESS3);
     res.render('admin/admin_home', {
       title: 'admin-home',
       users: userList,
     });
+  })();
+});
+
+// ユーザ詳細ページ
+router.get('/detail', isMasterAuthenticated, function(req, res, next) {
+  (async () => {
+    if (req.query.id) {
+      const userDetail = await usersController.getDetail(req.query.id);
+      res.render('admin/admin_detail', {
+        title: 'admin-detail',
+        userData: userDetail,
+      });
+    } else {
+      res.redirect('/admin/home');
+    }
   })();
 });
 

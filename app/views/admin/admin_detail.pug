@@ -1,0 +1,22 @@
+extends ../layout
+
+block content
+  // Page Content
+  #header-area
+    include ../utils/admin_header.pug
+
+    p#user-id #{userData.id}
+    p #{userData.name}
+    p #{userData.email}
+    if userData.admin_flg == 1 && userData.reading_machine == 0
+      p 管理者
+    else if userData.admin_flg == 0 && userData.reading_machine == 1
+      p QRコードリーダー
+    else
+      p 一般ユーザ
+
+    button#prev(type='button') 前の月
+    button#next(type='button') 次の月
+    #calendar
+
+    script(src='/javascript/admin_clndr.js')

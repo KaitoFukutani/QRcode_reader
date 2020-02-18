@@ -70,3 +70,23 @@ exports.getDelay = (req) => {
     });
   });
 };
+
+// 管理画面userの遅刻状況取得
+exports.getUserDelay = (req) => {
+  const year = req.body.year;
+  const month = (req.body.month.length > 1)?req.body.month.length: '0' + req.body.month;
+  const date = String(year) + String(month);
+  return new Promise((resolve, reject) => {
+    UserDelay.findAll({
+      where: {
+        user_id: req.body.id,
+        delay_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('delay_date'), '%Y%m'), date),
+      },
+    }).then((result) => {
+      resolve(result);
+    }).catch((err) => {
+      systemLogger.error(msg.DB_ERROR2 + err);
+      reject(err);
+    });
+  });
+};

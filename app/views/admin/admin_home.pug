@@ -4,3 +4,20 @@ block content
   // Page Content
   #header-area
     include ../utils/admin_header.pug
+
+    table.table.user-table.border
+      thead.thead.bg-light
+        tr
+          th(scope='col') ID
+          th(scope='col') NAME
+          th(scope='col') MAIL
+          th(scope='col') DETAIL
+        tbody
+          - for (let i = 0; i < users.length; i++)
+            tr
+              td #{users[i].id}
+              td #{users[i].name}
+              td #{users[i].email}
+              td
+                a(href=`/admin/detail?id=${users[i].id}`)
+                  img(src="/image/detail.png")

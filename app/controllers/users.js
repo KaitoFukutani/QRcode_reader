@@ -63,3 +63,18 @@ exports.getUser = () => {
     });
   });
 };
+
+exports.getDetail = (req) => {
+  return new Promise((resolve, reject) => {
+    Users.findAll({
+      where: {
+        id: req,
+      },
+    }).then((data) => {
+      resolve(data[0].dataValues);
+    }).catch((err) => {
+      systemLogger.error(msg.ERR_5 + err);
+      reject(err);
+    });
+  });
+};

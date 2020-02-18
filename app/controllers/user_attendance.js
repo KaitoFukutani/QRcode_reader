@@ -73,3 +73,22 @@ exports.getAttendance = (req) => {
   });
 };
 
+// 管理画面userの出席状況取得
+exports.getUserAttendance = (req) => {
+  const year = req.body.year;
+  const month = (req.body.month.length > 1)?req.body.month.length: '0' + req.body.month;
+  const date = String(year) + String(month);
+  return new Promise((resolve, reject) => {
+    UserAttendance.findAll({
+      where: {
+        user_id: req.body.id,
+        attendance_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('attendance_date'), '%Y%m'), date),
+      },
+    }).then((result) => {
+      resolve(result);
+    }).catch((err) => {
+      systemLogger.error(msg.DB_ERROR2 + err);
+      reject(err);
+    });
+  });
+};

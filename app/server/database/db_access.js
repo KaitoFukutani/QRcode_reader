@@ -80,4 +80,19 @@ router.post('/getattendance', (req, res, next) => {
   })(req);
 });
 
+// ユーザー出欠データ取得
+router.post('/getuserattendance', (req, res, next) => {
+  (async (req) => {
+    const attendanceData = await userAttendanceController.getUserAttendance(req);
+    const delayData = await userDelayController.getUserDelay(req);
+    const absenceData = await userAbsenceController.getUserAbsence(req);
+    const userData = {
+      attendanceData: attendanceData,
+      delayData: delayData,
+      absenceData: absenceData,
+    };
+    res.send(userData);
+  })(req);
+});
+
 module.exports = router;
