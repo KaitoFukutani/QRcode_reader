@@ -384,32 +384,35 @@ section {
   margin: 10px;
 }
 
+
+/* aaaaaaaaaaaaaaaaaaaaaaaaaa */
 h1 {
   font-size: 18px;
 }
 
-table {
+.clndr-table {
   border-spacing: 0;
   border-collapse: collapse;
 }
 
-td {
+.clndr-td {
   border: 1px solid #ddd;
   padding: 20px;
   text-align: center;
 }
 
-td:first-child {
+.clndr-td:first-child {
   color: red;
 }
 
-td:last-child {
+.clndr-td:last-child {
   color: royalblue;
 }
 
-td.is-disabled {
+.clndr-td.is-disabled {
   color: #ccc;
 }
+/* aaaaaaaaaaaaaaaaaaaaaaaaaa */
 
 #come {
   background-color: rgba(67, 255, 130, 0.1);
@@ -440,4 +443,18 @@ td.is-disabled {
 
 #other:hover {
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+.user-id {
+  margin-left: 30px;
+}
+
+.detail-icon {
+  height: 30px;
+  opacity: 0.5;
+}
+
+.detail-icon:hover {
+  height: 30px;
+  opacity: 1;
 }
