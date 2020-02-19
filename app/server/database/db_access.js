@@ -49,16 +49,21 @@ router.post('/addabsence', (req, res, next) => {
 // 出欠データ登録
 router.post('/addattendance', (req, res, next) => {
   (async (req) => {
-    const QRdata = JSON.parse(req.body.QRdata.data);
-    if (
-      typeof QRdata.key != 'undefined' &&
-      QRdata.key == process.env.QR_KEY
-    ) {
-      await userAttendanceController.addAttendance(QRdata).then((data) => {
-        res.send(data);
-      }).catch((err) => {
-        res.send({result: 'error'});
-      });
+    let QRdata;
+    if (req.body.QRdata.data.indexOf(process.env.QR_KEY) !== -1) {
+      QRdata = JSON.parse(req.body.QRdata.data);
+      if (
+        typeof QRdata.key != 'undefined' &&
+        QRdata.key == process.env.QR_KEY
+      ) {
+        await userAttendanceController.addAttendance(QRdata).then((data) => {
+          res.send(data);
+        }).catch((err) => {
+          res.send({result: 'error'});
+        });
+      } else {
+        res.send({result: 'question'});
+      }
     } else {
       res.send({result: 'question'});
     }

@@ -337,7 +337,7 @@ nav {
 #qr-announce {
   display: none;
   animation: flash 2s linear infinite;
-  color: #e03434;
+  color: #000000;
   margin:20px;
 }
 
