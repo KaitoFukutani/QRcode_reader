@@ -4,6 +4,10 @@
  */
 function openWebcam(e) { // eslint-disable-line
   // related elements:
+  const startUpBtn = document.getElementById('start-up');
+  const announce = document.getElementById('qr-announce');
+  startUpBtn.style.display = 'none';
+  announce.style.display = 'block';
   const $root = $('#pane-webcam');
   const canvas = $root.find('[name=canvas]')[0];
   const video = $root.find('[name=video]').show()[0];
@@ -104,6 +108,25 @@ function snapshot({video, canvas, ctx}) { // eslint-disable-line
     });
   }
 }
+
+/**
+ * @description ショートカットキーのみでログアウト処理を実行
+ * @param {event} e
+ */
+document.addEventListener('keydown', (e) => {
+  if (e.ctrlKey) {
+    if (e.keyCode === 27) {
+      fetch('/reader/logout', {
+        method: 'GET',
+        headers: {
+          'Content-type': 'application/json',
+        },
+      }).then((data) => {
+        location.reload();
+      });
+    }
+  }
+});
 
 // /**
 //  * @description Webカメラの停止処理。連続して読み込むため使用していない。

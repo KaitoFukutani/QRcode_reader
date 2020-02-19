@@ -33,6 +33,9 @@ app.set('view engine', 'pug');
 app.use('/sweetalert2', express.static(
     path.join(__dirname, '/node_modules/sweetalert2/dist/'),
 ));
+app.use('/bootstrap', express.static(
+    path.join(__dirname, '/node_modules/bootstrap/dist/'),
+));
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));

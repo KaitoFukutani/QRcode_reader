@@ -1,7 +1,11 @@
 extends ../layout
 
 block content
-  button(type='button', onclick='openWebcam(event)').qr_in リーダー起動
-  #pane-webcam
-    video(name='video', style='max-height:300px; display: none;', autoplay='')
-    canvas(name='canvas', style='max-height: 300px; display: none;')
+  .text-center
+    button#start-up.mt-5.btn.btn-outline-secondary(type='button', onclick='openWebcam(event)').qr_in リーダー起動
+    #pane-webcam
+      video(name='video', style='max-height:300px; display: none;', autoplay='')
+      canvas(name='canvas', style='max-height: 300px; display: none;')
+      #qr-announce.h2.center-block.mt-5 カメラにQRコードをかざしてください
+
+    script(src='/javascript/qrcode_reader.js')
