@@ -5,8 +5,11 @@ block content
   #header-area
     include ../utils/user_header.pug
 
-    button#prev(type='button') 前の月
-    button#next(type='button') 次の月
-    #calendar
+    .container.col-8.mt-5.text-muted
+      p.h3.mb-5.text-center 出欠状況
+      #calendar
+      .btn-area.mt-5
+        button#prev.mr-4.btn.btn-outline-secondary(type='button') 前の月
+        button#next.ml-4.btn.btn-outline-secondary(type='button') 次の月
 
   script(src='/javascript/clndr.js')

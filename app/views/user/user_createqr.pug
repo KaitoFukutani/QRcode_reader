@@ -5,5 +5,9 @@ block content
   #header-area
     include ../utils/user_header.pug
   block content
-    a.in_qr(href='/user/user_inqr') IN
-    a.out_qr(href='/user/user_outqr') OUT
+    .text-muted.h3.mb-5.mt-5.text-center 発行するQRを選択してください
+    .create-area
+      button.mr-4.qr-btn.btn-lg.btn.btn-outline-secondary(type='button')
+        a.qr_create(href='/user/user_inqr') IN
+      button.ml-4.qr-btn.btn-lg.btn.btn-outline-secondary(type='button')
+        a.qr_create(href='/user/user_outqr') OUT

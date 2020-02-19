@@ -5,9 +5,12 @@ block content
   #header-area
     include ../utils/user_header.pug
 
-    p 遅刻
-    form(action='/user/add_delay', method='POST')
-      textarea#delay_reason(name='reason' type='textarea' placeholder="遅刻理由" onKeyUp="countLength(value, 'textlength2')")
-      p#textlength2 0/100文字
-      input#delay_date(name='date' type='date')
-      button(type="button" onclick='AddDelayModal()') 登録
+    .text-muted.h3.mb-5.mt-5.text-center 遅刻を登録します
+    form.add-status(action='/user/add_delay', method='POST')
+      .raw
+        textarea#delay_reason.reason(name='reason' type='textarea' placeholder="遅刻理由" onKeyUp="countLength(value, 'textlength2')")
+        p#textlength2 0/100文字
+      .raw
+        input#delay_date.mt-3(name='date' type='date')
+      .raw
+        button.mt-5.qr-btn.btn.btn-outline-secondary(type="button" onclick='AddDelayModal()') 登録

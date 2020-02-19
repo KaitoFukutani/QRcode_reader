@@ -39,7 +39,7 @@ function createCalendar(year, month, userData) {
   const startDay = startDate.getDay(); // 月の最初の日の曜日を取得
   let dayCount = 1; // 日にちのカウント
   let calendarHtml = ''; // HTMLを組み立てる変数
-  calendarHtml += '<h3>' + year + '/' + month + '</h3>';
+  calendarHtml += '<h4>' + year + '/' + month + '</h4>';
   calendarHtml += '<table class="clndr-table">';
   // 曜日の行を作成
   for (let i = 0; i < weeks.length; i++) {

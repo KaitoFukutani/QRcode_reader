@@ -4,19 +4,30 @@ block content
   // Page Content
   #header-area
     include ../utils/admin_header.pug
+    .text-muted.user-data.mt-5.ml-5
+      table
+        tr
+          th.w-50 ID
+          td#user-id.p-2 #{userData.id}
+        tr
+          th.w-50 NAME
+          td.p-2 #{userData.name}
+        tr
+          th.w-50 MAIL
+          td.p-2 #{userData.email}
+        tr
+          th.w-50 STATUS
+            if userData.admin_flg == 1 && userData.reading_machine == 0
+              td.p-2 管理者
+            else if userData.admin_flg == 0 && userData.reading_machine == 1
+              td.p-2 QRコードリーダー
+            else
+              td.p-2 一般ユーザ
 
-    p#user-id #{userData.id}
-    p #{userData.name}
-    p #{userData.email}
-    if userData.admin_flg == 1 && userData.reading_machine == 0
-      p 管理者
-    else if userData.admin_flg == 0 && userData.reading_machine == 1
-      p QRコードリーダー
-    else
-      p 一般ユーザ
-
-    button#prev(type='button') 前の月
-    button#next(type='button') 次の月
-    #calendar
+    .text-muted.mt-5.ml-5.user-clndr
+      #calendar
+      .btn-area.mt-4
+        button#prev.mr-4.btn.btn-outline-secondary(type='button') 前の月
+        button#next.ml-4.btn.btn-outline-secondary(type='button') 次の月
 
     script(src='/javascript/admin_clndr.js')

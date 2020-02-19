@@ -39,11 +39,11 @@ function createCalendar(year, month, userData) {
   const startDay = startDate.getDay(); // 月の最初の日の曜日を取得
   let dayCount = 1; // 日にちのカウント
   let calendarHtml = ''; // HTMLを組み立てる変数
-  calendarHtml += '<h3>' + year + '/' + month + '</h3>';
+  calendarHtml += '<h4>' + year + '/' + month + '</h4>';
   calendarHtml += '<table class="clndr-table">';
   // 曜日の行を作成
   for (let i = 0; i < weeks.length; i++) {
-    calendarHtml += '<td class="clndr-td">' + weeks[i] + '</td>';
+    calendarHtml += '<td class="user-clndr-td">' + weeks[i] + '</td>';
   }
   for (let w = 0; w < 6; w++) {
     calendarHtml += '<tr class="clndr-tr">';
@@ -51,11 +51,11 @@ function createCalendar(year, month, userData) {
       if (w == 0 && d < startDay) {
         // 1行目で1日の曜日の前
         const num = lastMonthendDayCount - startDay + d + 1;
-        calendarHtml += '<td class="is-disabled clndr-td">' + num + '</td>';
+        calendarHtml += '<td class="is-disabled user-clndr-td">' + num + '</td>';
       } else if (dayCount > endDayCount) {
         // 末尾の日数を超えた
         const num = dayCount - endDayCount;
-        calendarHtml += '<td class="is-disabled clndr-td">' + num + '</td>';
+        calendarHtml += '<td class="is-disabled user-clndr-td">' + num + '</td>';
         dayCount++;
       } else {
         let comeFlg;
@@ -98,16 +98,16 @@ function createCalendar(year, month, userData) {
           }
         }
         if (comeFlg == targetDay) {
-          calendarHtml += `<td class="clndr-td" id="come" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+          calendarHtml += `<td class="user-clndr-td" id="come" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
           dayCount++;
         } else if (delayFlg == targetDay) {
-          calendarHtml += `<td class=" clndr-td" id="delay" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+          calendarHtml += `<td class=" user-clndr-td" id="delay" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
           dayCount++;
         } else if (absenceFlg == targetDay) {
-          calendarHtml += `<td class="clndr-td" id="absence" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+          calendarHtml += `<td class="user-clndr-td" id="absence" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
           dayCount++;
         } else {
-          calendarHtml += `<td class="clndr-td" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
+          calendarHtml += `<td class="user-clndr-td" data-date="${year}/${month}/${dayCount}">${dayCount}</td>`;
           dayCount++;
         }
       }
