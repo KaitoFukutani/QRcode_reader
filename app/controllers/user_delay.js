@@ -56,7 +56,7 @@ exports.checkDelay = (req) => {
   return new Promise((resolve, reject) => {
     UserDelay.findAll({
       where: {
-        delay_date: req.date,
+        delay_date: req,
       },
     }).then((result) => {
       systemLogger.info(msg.DB_INFO2);

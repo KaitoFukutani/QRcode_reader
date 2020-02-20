@@ -30,7 +30,7 @@ router.post('/adddelay', (req, res, next) => {
       date: req.body.date,
       id: req.user.id,
     };
-    await userAbsenceController.checkAbsence(delay);
+    await userAbsenceController.checkAbsence(delay.date);
     const result = await userDelayController.addDelay(delay);
     console.log(delay);
     res.send(result);
@@ -45,7 +45,7 @@ router.post('/addabsence', (req, res, next) => {
       date: req.body.date,
       id: req.user.id,
     };
-    await userDelayController.checkDelay(absence);
+    await userDelayController.checkDelay(absence.date);
     const result = await userAbsenceController.addAbsence(absence);
     console.log(absence);
     res.send(result);
@@ -63,6 +63,16 @@ router.post('/addattendance', (req, res, next) => {
         QRdata.key == process.env.QR_KEY
       ) {
         await userAttendanceController.addAttendance(QRdata).then((data) => {
+          if (data.result == 'warning') {
+            const dt = new Date();
+            dt.setHours(dt.getHours() + 9);
+            const y = dt.getFullYear();
+            const m = ('00' + (dt.getMonth()+1)).slice(-2);
+            const d = ('00' + dt.getDate()).slice(-2);
+            const date = y + '-' + m + '-' + d;
+            userDelayController.checkDelay(date);
+            userAbsenceController.checkAbsence(date);
+          }
           res.send(data);
         }).catch((err) => {
           res.send({result: 'error'});

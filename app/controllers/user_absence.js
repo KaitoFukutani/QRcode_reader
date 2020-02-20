@@ -56,7 +56,7 @@ exports.checkAbsence = (req) => {
   return new Promise((resolve, reject) => {
     UserAbsence.findAll({
       where: {
-        absence_date: req.date,
+        absence_date: req,
       },
     }).then((result) => {
       systemLogger.info(msg.DB_INFO2);
