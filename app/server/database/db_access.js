@@ -24,26 +24,32 @@ router.post('/signin', (req, res, next) => {
 
 // 遅刻登録
 router.post('/adddelay', (req, res, next) => {
-  const delay = {
-    reason: req.body.reason,
-    date: req.body.date,
-    id: req.user.id,
-  };
-  const result = userDelayController.addDelay(delay);
-  console.log(delay);
-  res.send(result);
+  (async (req) => {
+    const delay = {
+      reason: req.body.reason,
+      date: req.body.date,
+      id: req.user.id,
+    };
+    await userAbsenceController.checkAbsence(delay);
+    const result = await userDelayController.addDelay(delay);
+    console.log(delay);
+    res.send(result);
+  })(req);
 });
 
 // 欠席登録
 router.post('/addabsence', (req, res, next) => {
-  const absence = {
-    reason: req.body.reason,
-    date: req.body.date,
-    id: req.user.id,
-  };
-  const result = userAbsenceController.addAbsence(absence);
-  console.log(absence);
-  res.send(result);
+  (async (req) => {
+    const absence = {
+      reason: req.body.reason,
+      date: req.body.date,
+      id: req.user.id,
+    };
+    await userDelayController.checkDelay(absence);
+    const result = await userAbsenceController.addAbsence(absence);
+    console.log(absence);
+    res.send(result);
+  })(req);
 });
 
 // 出欠データ登録

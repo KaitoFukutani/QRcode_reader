@@ -51,6 +51,37 @@ exports.addDelay = (req) => {
   });
 };
 
+// 同日登録済み遅刻確認
+exports.checkDelay = (req) => {
+  return new Promise((resolve, reject) => {
+    UserDelay.findAll({
+      where: {
+        delay_date: req.date,
+      },
+    }).then((result) => {
+      if (result.length) {
+        if (result.length) {
+          UserDelay.destroy({
+            where: {
+              id: result[0].dataValues.id,
+            },
+          }).then((responce) => {
+            resolve(responce);
+          }).catch((err) => {
+            reject(err);
+          });
+        } else {
+          resolve(result);
+        }
+      }
+      resolve(result);
+    }).catch((err) => {
+      systemLogger.error(msg.DB_ERROR2 + err);
+      reject(err);
+    });
+  });
+};
+
 // userの遅刻状況取得
 exports.getDelay = (req) => {
   const year = req.body.year;

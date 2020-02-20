@@ -51,6 +51,34 @@ exports.addAbsence = (req) => {
   });
 };
 
+// 同日登録済み欠席確認
+exports.checkAbsence = (req) => {
+  return new Promise((resolve, reject) => {
+    UserAbsence.findAll({
+      where: {
+        absence_date: req.date,
+      },
+    }).then((result) => {
+      if (result.length) {
+        UserAbsence.destroy({
+          where: {
+            id: result[0].dataValues.id,
+          },
+        }).then((responce) => {
+          resolve(responce);
+        }).catch((err) => {
+          reject(err);
+        });
+      } else {
+        resolve(result);
+      }
+    }).catch((err) => {
+      systemLogger.error(msg.DB_ERROR2 + err);
+      reject(err);
+    });
+  });
+};
+
 // userの欠席状況取得
 exports.getAbsence = (req) => {
   const year = req.body.year;
