@@ -59,17 +59,21 @@ exports.checkAbsence = (req) => {
         absence_date: req.date,
       },
     }).then((result) => {
+      systemLogger.info(msg.DB_INFO2);
       if (result.length) {
         UserAbsence.destroy({
           where: {
             id: result[0].dataValues.id,
           },
         }).then((responce) => {
+          systemLogger.info(msg.DB_INFO4);
           resolve(responce);
         }).catch((err) => {
+          systemLogger.error(msg.DB_ERROR4 + err);
           reject(err);
         });
       } else {
+        systemLogger.info(msg.DB_INFO2);
         resolve(result);
       }
     }).catch((err) => {
@@ -91,6 +95,7 @@ exports.getAbsence = (req) => {
         absence_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('absence_date'), '%Y%m'), date),
       },
     }).then((result) => {
+      systemLogger.info(msg.DB_INFO2);
       resolve(result);
     }).catch((err) => {
       systemLogger.error(msg.DB_ERROR2 + err);
@@ -111,6 +116,7 @@ exports.getUserAbsence = (req) => {
         absence_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('absence_date'), '%Y%m'), date),
       },
     }).then((result) => {
+      systemLogger.info(msg.DB_INFO2);
       resolve(result);
     }).catch((err) => {
       systemLogger.error(msg.DB_ERROR2 + err);
