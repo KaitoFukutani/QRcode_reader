@@ -1,11 +1,12 @@
 extends ../layout
 
 block content
-  // Page Content
-  block content
-    .text-muted.h3.mb-5.mt-5.text-center QRコードをリーダーにかざしてください
-      .row
-        img.mt-5.qr-img(src='/tmp/' + QRcode)
-      .row
-        a.home-icon-area.mt-5(href='/user/home')
-          img.home-icon(src='/image/home.png')
+  #header-area
+  include ../utils/user_header.pug
+
+  .text-muted.h3.mb-5.mt-5.text-center QRコードをリーダーにかざしてください
+    .row
+      img.mt-5.qr-img(src='/tmp/' + QRcode)
+    .row
+      a.home-icon-area.mt-5(href='/user/home')
+        img.home-icon(src='/image/home.png')

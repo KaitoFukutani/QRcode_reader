@@ -236,7 +236,7 @@ body {
 /* header */
 nav {
   padding:10px;
-  background: #ccc;
+  background: #e3e3e3;;
 }
 
 #nav-drawer {
@@ -417,7 +417,7 @@ section {
 
 .clndr-td {
   border: 1px solid #ddd;
-  padding: 11px;
+  padding: 15px;
   text-align: center;
 }
 
@@ -551,4 +551,21 @@ section {
 .reason {
   width: 350px;
   height: 100px;
+}
+
+.header-list-item {
+  text-decoration: none;
+  color: #6c757d;
+  opacity: 0.5;
+}
+
+.header-list-item:active {
+  text-decoration: none;
+  color: #6c757d
+}
+
+.header-list-item:hover {
+  text-decoration: none;
+  color: #6c757d;
+  opacity: 1;
 }
