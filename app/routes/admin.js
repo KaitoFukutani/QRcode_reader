@@ -5,6 +5,8 @@ const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
 const usersController = require('../controllers/users');
+const userDelayController = require('../controllers/user_delay');
+const userAbsenceController = require('../controllers/user_absence');
 const isMasterAuthenticated = require('../server/util/master_authenticated');
 
 // 管理者ログインページ
@@ -48,6 +50,42 @@ router.get('/detail', isMasterAuthenticated, function(req, res, next) {
     } else {
       res.redirect('/admin/home');
     }
+  })();
+});
+
+// 遅刻予定一覧
+router.get('/delay', isMasterAuthenticated, function(req, res, next) {
+  (async () => {
+    const delayList = await userDelayController.getAllDelay();
+    const dt = new Date();
+    dt.setHours(dt.getHours() + 9);
+    const y = dt.getFullYear();
+    const m = ('00' + (dt.getMonth()+1)).slice(-2);
+    const d = ('00' + dt.getDate()).slice(-2);
+    const date = y + '-' + m + '-' + d;
+    res.render('admin/admin_delay', {
+      title: 'admin-delay',
+      delay: delayList,
+      today: date,
+    });
+  })();
+});
+
+// 欠席予定一覧
+router.get('/absence', isMasterAuthenticated, function(req, res, next) {
+  (async () => {
+    const absenceList = await userAbsenceController.getAllAbsence();
+    const dt = new Date();
+    dt.setHours(dt.getHours() + 9);
+    const y = dt.getFullYear();
+    const m = ('00' + (dt.getMonth()+1)).slice(-2);
+    const d = ('00' + dt.getDate()).slice(-2);
+    const date = y + '-' + m + '-' + d;
+    res.render('admin/admin_absence', {
+      title: 'admin-absence',
+      absence: absenceList,
+      today: date,
+    });
   })();
 });
 

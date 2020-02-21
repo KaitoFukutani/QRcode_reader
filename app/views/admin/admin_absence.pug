@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  // Page Content
+  #header-area
+    include ../utils/admin_header.pug
+    .container.col-8.mt-5.text-muted
+      h2.mb-4 欠席予定一覧
+      table.table.table-bordered.text-muted
+        thead.thead.bg-light
+          tr
+            th(scope='col') DATE
+            th(scope='col') USER ID
+            th(scope='col') USER NAME
+            th(scope='col') RASON
+          tbody
+            - for (let i = 0; i < absence.length; i++)
+              - var getTime = absence[i].absence_date
+              - var format = getTime.toISOString()
+              - var absence_date = format.split('T')[0]
+              - var comparison = absence_date.replace(/-/g, '')
+              - var comparisonToday = today.replace(/-/g, '')
+              if comparison > comparisonToday
+                tr
+                  td.align-middle.p-2 #{absence_date}
+                  td.align-middle.p-2 #{absence[i].user_id}
+                  td.align-middle.p-2 #{absence[i]['user.name']}
+                  td.align-middle.p-2 #{absence[i].absence_reason}
+              else
+                tr.past-day
+                  td.align-middle.p-2 #{absence_date}
+                  td.align-middle.p-2 #{absence[i].user_id}
+                  td.align-middle.p-2 #{absence[i]['user.name']}
+                  td.align-middle.p-2 #{absence[i].absence_reason}

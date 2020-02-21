@@ -2,6 +2,7 @@ const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
 const UserAbsence = require('../models').user_absence;
+const Users = require('../models').users;
 const Sequelize = require('sequelize');
 
 // 欠席登録
@@ -94,6 +95,30 @@ exports.getAbsence = (req) => {
         user_id: req.user.id,
         absence_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('absence_date'), '%Y%m'), date),
       },
+    }).then((result) => {
+      systemLogger.info(msg.DB_INFO2);
+      resolve(result);
+    }).catch((err) => {
+      systemLogger.error(msg.DB_ERROR2 + err);
+      reject(err);
+    });
+  });
+};
+
+// 遅刻状況全件取得
+exports.getAllAbsence = () => {
+  return new Promise((resolve, reject) => {
+    UserAbsence.findAll({
+      raw: true,
+      include: [{
+        model: Users,
+        required: false,
+        attributes: [
+          'id',
+          'name',
+        ],
+      }],
+      order: [['absence_date', 'DESC']],
     }).then((result) => {
       systemLogger.info(msg.DB_INFO2);
       resolve(result);

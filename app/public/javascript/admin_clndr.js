@@ -27,7 +27,7 @@ function showCalendar(year, month, userData) {
 /**
  * @param {number} year
  * @param {number} month
-  * @param {object} userData
+ * @param {object} userData
  * @return {HTMLFormElement} calendarHtml
  */
 function createCalendar(year, month, userData) {

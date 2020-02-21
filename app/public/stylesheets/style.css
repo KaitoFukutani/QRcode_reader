@@ -569,3 +569,7 @@ section {
   color: #6c757d;
   opacity: 1;
 }
+
+.past-day {
+  background-color: #a2a0a02e;
+}
