@@ -129,6 +129,24 @@ exports.getAllAbsence = () => {
   });
 };
 
+// 個人ページ欠席状況取得
+exports.getAbsenceList = (req) => {
+  return new Promise((resolve, reject) => {
+    UserAbsence.findAll({
+      where: {
+        user_id: req,
+      },
+      order: [['absence_date', 'DESC']],
+    }).then((result) => {
+      systemLogger.info(msg.DB_INFO2);
+      resolve(result);
+    }).catch((err) => {
+      systemLogger.error(msg.DB_ERROR2 + err);
+      reject(err);
+    });
+  });
+};
+
 // 管理画面userの欠席状況取得
 exports.getUserAbsence = (req) => {
   const year = req.body.year;
@@ -145,6 +163,23 @@ exports.getUserAbsence = (req) => {
       resolve(result);
     }).catch((err) => {
       systemLogger.error(msg.DB_ERROR2 + err);
+      reject(err);
+    });
+  });
+};
+
+exports.deleteAbsence = (req) => {
+  return new Promise((resolve, reject) => {
+    UserAbsence.destroy({
+      where: {
+        user_id: req.user.id,
+        absence_date: req.body.date,
+      },
+    }).then((responce) => {
+      systemLogger.info(msg.DB_INFO4);
+      resolve(responce);
+    }).catch((err) => {
+      systemLogger.error(msg.DB_ERROR4 + err);
       reject(err);
     });
   });

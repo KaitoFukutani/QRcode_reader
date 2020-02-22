@@ -573,3 +573,30 @@ section {
 .past-day {
   background-color: #a2a0a02e;
 }
+
+.delete_c {
+  height: 30px;
+  opacity: 0.5;
+}
+
+.delete_o {
+  height: 30px;
+  opacity: 1;
+  }
+
+.delete_icon > button > .delete_c {
+  display: block;
+
+}
+
+.delete_icon > button > .delete_o {
+  display: none;
+}
+
+.delete_icon:hover > button > .delete_c {
+  display: none;
+}
+
+.delete_icon:hover > button > .delete_o {
+  display: block;
+}

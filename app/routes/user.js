@@ -4,6 +4,8 @@ const passport = require('passport');
 const log4js = require('log4js');
 const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
+const userDelayController = require('../controllers/user_delay');
+const userAbsenceController = require('../controllers/user_absence');
 const isUserAuthenticated = require('../server/util/user_authenticated');
 const qrCreate = require('../public/javascript/create_qrcode');
 
@@ -85,6 +87,47 @@ router.get('/absence', isUserAuthenticated, function(req, res, next) {
     systemLogger.info(msg.ACCESS7);
     res.render('user/user_absence', {
       title: 'user-abscece',
+    });
+  })();
+});
+
+// 遅刻登録ページ
+router.get('/delaylist', isUserAuthenticated, function(req, res, next) {
+  (async () => {
+    systemLogger.info(msg.ACCESS8);
+    const userDelayList = await userDelayController.getUserDelayList(req.user.id);
+    console.log(userDelayList)
+    const dt = new Date();
+    dt.setHours(dt.getHours() + 9);
+    const y = dt.getFullYear();
+    const m = ('00' + (dt.getMonth()+1)).slice(-2);
+    const d = ('00' + dt.getDate()).slice(-2);
+    const date = y + '-' + m + '-' + d;
+    res.render('user/user_delaylist', {
+      title: 'user-delay',
+      userDelay: userDelayList,
+      today: date,
+      title: 'user-delay',
+    });
+  })();
+});
+
+// 欠席登録ページ
+router.get('/absencelist', isUserAuthenticated, function(req, res, next) {
+  (async () => {
+    systemLogger.info(msg.ACCESS8);
+    const userAbsenceList = await userAbsenceController.getAbsenceList(req.user.id);
+    console.log(userAbsenceList)
+    const dt = new Date();
+    dt.setHours(dt.getHours() + 9);
+    const y = dt.getFullYear();
+    const m = ('00' + (dt.getMonth()+1)).slice(-2);
+    const d = ('00' + dt.getDate()).slice(-2);
+    const date = y + '-' + m + '-' + d;
+    res.render('user/user_absencelist', {
+      title: 'user-abscece',
+      userAbsence: userAbsenceList,
+      today: date,
     });
   })();
 });

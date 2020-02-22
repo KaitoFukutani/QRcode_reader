@@ -105,7 +105,7 @@ exports.getDelay = (req) => {
   });
 };
 
-// 欠席状況全件取得
+// 遅刻状況全件取得
 exports.getAllDelay = () => {
   return new Promise((resolve, reject) => {
     UserDelay.findAll({
@@ -129,6 +129,25 @@ exports.getAllDelay = () => {
   });
 };
 
+// 遅刻状況全件取得
+exports.getUserDelayList = (req) => {
+  return new Promise((resolve, reject) => {
+    UserDelay.findAll({
+      where: {
+        user_id: req,
+      },
+      order: [['delay_date', 'DESC']],
+    }).then((result) => {
+      systemLogger.info(msg.DB_INFO2);
+      resolve(result);
+    }).catch((err) => {
+      systemLogger.error(msg.DB_ERROR2 + err);
+      reject(err);
+    });
+  });
+};
+
+
 // 管理画面userの遅刻状況取得
 exports.getUserDelay = (req) => {
   const year = req.body.year;
@@ -145,6 +164,23 @@ exports.getUserDelay = (req) => {
       resolve(result);
     }).catch((err) => {
       systemLogger.error(msg.DB_ERROR2 + err);
+      reject(err);
+    });
+  });
+};
+
+exports.deleteDelay = (req) => {
+  return new Promise((resolve, reject) => {
+    UserDelay.destroy({
+      where: {
+        user_id: req.user.id,
+        delay_date: req.body.date,
+      },
+    }).then((responce) => {
+      systemLogger.info(msg.DB_INFO4);
+      resolve(responce);
+    }).catch((err) => {
+      systemLogger.error(msg.DB_ERROR4 + err);
       reject(err);
     });
   });

@@ -116,4 +116,20 @@ router.post('/getuserattendance', (req, res, next) => {
   })(req);
 });
 
+// 遅刻情報削除
+router.post('/deletedelay', (req, res, next) => {
+  (async (req) => {
+    await userDelayController.deleteDelay(req);
+    res.send();
+  })(req);
+});
+
+// 欠席情報削除
+router.post('/deleteabsence', (req, res, next) => {
+  (async (req) => {
+    await userAbsenceController.deleteAbsence(req);
+    res.send();
+  })(req);
+});
+
 module.exports = router;

@@ -113,3 +113,91 @@ function AddAbsenceModal() { // eslint-disable-line
     });
   }
 }
+
+/**
+ * 遅刻予定削除関数
+ * @param {String} delay_date
+ */
+function deleteDelayModal(delay_date) { // eslint-disable-line
+  Swal.fire({
+    title: '遅刻予定を削除します',
+    text: '※削除の処理は取り消せません',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'OK',
+  }).then((result) => {
+    if (result.value) {
+      fetch('/db/deletedelay', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: delay_date,
+        }),
+      }).then((res) => {
+        Swal.fire({
+          title: '削除完了',
+          html: '遅刻情報を削除しました',
+          type: 'success',
+          icon: 'success',
+          onAfterClose: () => {
+            location.reload();
+          },
+        });
+      }).catch((err) => {
+        Swal.fire(
+            'ERROR',
+            '予期せぬエラーが発生しました。',
+            'error',
+        );
+      });
+    }
+  });
+}
+
+/**
+ * 欠席予定削除関数
+* @param {String} absence_date
+ */
+function deleteAbsenceModal(absence_date) { // eslint-disable-line
+  Swal.fire({
+    title: '欠席予定を削除します',
+    text: '※削除の処理は取り消せません',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'OK',
+  }).then((result) => {
+    if (result.value) {
+      fetch('/db/deleteabsence', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+          date: absence_date,
+        }),
+      }).then((res) => {
+        Swal.fire({
+          title: '削除完了',
+          html: '欠席情報を削除しました',
+          type: 'success',
+          icon: 'success',
+          onAfterClose: () => {
+            location.reload();
+          },
+        });
+      }).catch((err) => {
+        Swal.fire(
+            'ERROR',
+            '予期せぬエラーが発生しました。',
+            'error',
+        );
+      });
+    }
+  });
+}

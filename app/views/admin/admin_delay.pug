@@ -20,7 +20,7 @@ block content
               - var delay_date = format.split('T')[0]
               - var comparison = delay_date.replace(/-/g, '')
               - var comparisonToday = today.replace(/-/g, '')
-              if comparison > 20200301
+              if comparison > comparisonToday
                 tr
                   td.align-middle.p-2 #{delay_date}
                   td.align-middle.p-2 #{delay[i].user_id}
