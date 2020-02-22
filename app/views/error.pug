@@ -1,6 +1,10 @@
 extends layout
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  .container-fluid.col-8
+    p.h1.text-center.text-muted.border-bottom #{error.status}
+    h4.text-center.text-muted.mt-5 #{message}
+    .text-center.mt-5
+      img(src="/image/error.png")
+    .text-center.mt-5
+      a.center-block.btn.btn-outline-secondary.mt-4.mb-2.rounded(href="home" role="button") BACK
