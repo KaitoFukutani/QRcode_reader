@@ -62,7 +62,7 @@ function createCalendar(year, month, userData) {
         let delayFlg;
         let absenceFlg;
         const targetDay = (dayCount > 1)?dayCount: '0' + dayCount;
-        if (userData.absenceData.length) {
+        if (userData.attendanceData.length) {
           for (let count = 0; count < userData.attendanceData.length; count++) {
             day = userData.attendanceData[count].attendance_date.substring(8, 10);
             if (day == targetDay && userData.attendanceData[count].in_flg == 1) {
