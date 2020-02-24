@@ -43,7 +43,7 @@ exports.addAttendance = (req) => {
         out_flg: outFlg,
         transaction: tx,
       });
-      message = {result: 'success'}
+      message = {result: 'success'};
     } else {
       message = {result: 'warning'};
     }
