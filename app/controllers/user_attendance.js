@@ -3,11 +3,12 @@ const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
 const UserAttendance = require('../models').user_attendance;
 const Sequelize = require('sequelize');
+const sequelize = require('../models').sequelize;
 const op = Sequelize.Op;
 
 // 出欠情報登録
 exports.addAttendance = (req) => {
-  return new Promise((resolve, reject) => {
+  return sequelize.transaction(async (tx) => {
     const dt = new Date();
     dt.setHours(dt.getHours() + 9);
     const y = dt.getFullYear();
@@ -23,7 +24,7 @@ exports.addAttendance = (req) => {
       inFlg = 0;
       outFlg = 1;
     }
-    UserAttendance.findAll({
+    const attendance = await UserAttendance.findAll({
       where: {
         user_id: req.id,
         in_flg: inFlg,
@@ -32,24 +33,25 @@ exports.addAttendance = (req) => {
           [op.gt]: date,
         },
       },
-    }).then((data) => {
-      if (!data.length) {
-        UserAttendance.create({
-          user_id: req.id,
-          attendance_date: dt,
-          in_flg: inFlg,
-          out_flg: outFlg,
-        }).then((data) => {
-          resolve({result: 'success'});
-        }).catch((err) => {
-          reject(err);
-        });
-      } else {
-        resolve({result: 'warning'});
-      }
-    }).catch((err) => {
-      reject(err);
+      transaction: tx,
     });
+    if (!attendance.length) {
+      await UserAttendance.create({
+        user_id: req.id,
+        attendance_date: dt,
+        in_flg: inFlg,
+        out_flg: outFlg,
+        transaction: tx,
+      });
+      message = {result: 'success'}
+    } else {
+      message = {result: 'warning'};
+    }
+  }).then((data) => {
+    return message;
+  }).catch((err) => {
+    systemLogger.error(msg.DB_ERROR5 + err);
+    throw new Error(err);
   });
 };
 

@@ -4,83 +4,74 @@ const systemLogger = log4js.getLogger('system');
 const UserAbsence = require('../models').user_absence;
 const Users = require('../models').users;
 const Sequelize = require('sequelize');
+const sequelize = require('../models').sequelize;
 
 // 欠席登録
 exports.addAbsence = (req) => {
-  return new Promise((resolve, reject) => {
-    UserAbsence.findAll({
+  return sequelize.transaction(async (tx) => {
+    const absence = await UserAbsence.findAll({
       where: {
         user_id: req.id,
         absence_date: req.date,
       },
-    }).then((data) => {
-      systemLogger.info(msg.DB_INFO2);
-      if (data.length > 0) {
-        UserAbsence.update({
-          absence_reason: req.reason,
-        }, {
-          where: {
-            user_id: req.id,
-            absence_date: req.date,
-          },
-        }).then((data) => {
-          systemLogger.info(msg.DB_INFO3);
-          resolve(data);
-        }).catch((err) => {
-          systemLogger.error(msg.DB_ERROR3 + err);
-          reject(err);
-        });
-      } else {
-        UserAbsence.create({
-          user_id: req.id,
-          absence_flg: 1,
-          absence_reason: req.reason,
-          absence_date: req.date,
-        }).then((data) => {
-          systemLogger.info(msg.DB_INFO1);
-          resolve(data);
-        }).catch((err) => {
-          systemLogger.error(msg.DB_ERROR1 + err);
-          reject(err);
-        });
-      }
-      resolve(data);
-    }).catch((err) => {
-      systemLogger.error(msg.DB_ERROR2 + err);
-      reject(err);
+      transaction: tx,
     });
+    systemLogger.info(msg.DB_INFO2);
+    if (absence.length > 0) {
+      await UserAbsence.update({
+        absence_reason: req.reason,
+      }, {
+        where: {
+          user_id: req.id,
+          absence_date: req.date,
+        },
+        transaction: tx,
+      });
+      systemLogger.info(msg.DB_INFO3);
+    } else {
+      await UserAbsence.create({
+        user_id: req.id,
+        absence_flg: 1,
+        absence_reason: req.reason,
+        absence_date: req.date,
+        transaction: tx,
+      });
+      systemLogger.info(msg.DB_INFO1);
+    }
+  }).then((data) => {
+    return data;
+  }).catch((err) => {
+    systemLogger.error(msg.DB_ERROR5 + err);
+    throw new Error(err);
   });
 };
 
 // 同日登録済み欠席確認
 exports.checkAbsence = (req) => {
-  return new Promise((resolve, reject) => {
-    UserAbsence.findAll({
+  return sequelize.transaction(async (tx) => {
+    const absence = await UserAbsence.findAll({
       where: {
         absence_date: req,
       },
-    }).then((result) => {
-      systemLogger.info(msg.DB_INFO2);
-      if (result.length) {
-        UserAbsence.destroy({
-          where: {
-            id: result[0].dataValues.id,
-          },
-        }).then((responce) => {
-          systemLogger.info(msg.DB_INFO4);
-          resolve(responce);
-        }).catch((err) => {
-          systemLogger.error(msg.DB_ERROR4 + err);
-          reject(err);
-        });
-      } else {
-        systemLogger.info(msg.DB_INFO2);
-        resolve(result);
-      }
-    }).catch((err) => {
-      systemLogger.error(msg.DB_ERROR2 + err);
-      reject(err);
+      transaction: tx,
     });
+    if (absence.length) {
+      await UserAbsence.destroy({
+        where: {
+          id: absence[0].dataValues.id,
+        },
+        transaction: tx,
+      });
+      systemLogger.info(msg.DB_INFO4);
+    } else {
+      systemLogger.info(msg.DB_INFO2);
+      return absence;
+    }
+  }).then((data) => {
+    return data;
+  }).catch((err) => {
+    systemLogger.error(msg.DB_ERROR5 + err);
+    throw new Error(err);
   });
 };
 
