@@ -31,7 +31,7 @@ function AddDelayModal() { // eslint-disable-line
         'error',
     );
   } else {
-    fetch('/db/adddelay', {
+    fetch('/db/addDelay', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -89,7 +89,7 @@ function AddAbsenceModal() { // eslint-disable-line
         'error',
     );
   } else {
-    fetch('/db/addabsence', {
+    fetch('/db/addAbsence', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -129,7 +129,7 @@ function deleteDelayModal(delay_date) { // eslint-disable-line
     confirmButtonText: 'OK',
   }).then((result) => {
     if (result.value) {
-      fetch('/db/deletedelay', {
+      fetch('/db/deleteDelay', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',
@@ -173,7 +173,7 @@ function deleteAbsenceModal(absence_date) { // eslint-disable-line
     confirmButtonText: 'OK',
   }).then((result) => {
     if (result.value) {
-      fetch('/db/deleteabsence', {
+      fetch('/db/deleteAbsence', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json',

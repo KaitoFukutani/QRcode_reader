@@ -12,7 +12,7 @@ block content
             th(scope='col') DATE
             th(scope='col') USER ID
             th(scope='col') USER NAME
-            th(scope='col') RASON
+            th(scope='col') REASON
           tbody
             - for (let i = 0; i < delay.length; i++)
               - var getTime = delay[i].delay_date
@@ -20,7 +20,7 @@ block content
               - var delay_date = format.split('T')[0]
               - var comparison = delay_date.replace(/-/g, '')
               - var comparisonToday = today.replace(/-/g, '')
-              if comparison > comparisonToday
+              if comparison >= comparisonToday
                 tr
                   td.align-middle.p-2 #{delay_date}
                   td.align-middle.p-2 #{delay[i].user_id}

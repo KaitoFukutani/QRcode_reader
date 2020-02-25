@@ -12,7 +12,7 @@ block content
             th(scope='col') DATE
             th(scope='col') USER ID
             th(scope='col') USER NAME
-            th(scope='col') RASON
+            th(scope='col') REASON
           tbody
             - for (let i = 0; i < absence.length; i++)
               - var getTime = absence[i].absence_date
@@ -20,7 +20,7 @@ block content
               - var absence_date = format.split('T')[0]
               - var comparison = absence_date.replace(/-/g, '')
               - var comparisonToday = today.replace(/-/g, '')
-              if comparison > comparisonToday
+              if comparison >= comparisonToday
                 tr
                   td.align-middle.p-2 #{absence_date}
                   td.align-middle.p-2 #{absence[i].user_id}

@@ -3,12 +3,12 @@ const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
 const UserDelay = require('../models').user_delay;
 const Users = require('../models').users;
-const Sequelize = require('sequelize');
-const sequelize = require('../models').sequelize;
+const sequelize = require('sequelize');
+const Sequelize = require('../models').sequelize;
 
 // 遅刻登録
 exports.addDelay = (req) => {
-  return sequelize.transaction(async (tx) => {
+  return Sequelize.transaction(async (tx) => {
     const delay = await UserDelay.findAll({
       where: {
         user_id: req.id,
@@ -48,7 +48,7 @@ exports.addDelay = (req) => {
 
 // 同日登録済み欠席確認
 exports.checkDelay = (req) => {
-  return sequelize.transaction(async (tx) => {
+  return Sequelize.transaction(async (tx) => {
     const delay = await UserDelay.findAll({
       where: {
         delay_date: req,
@@ -84,7 +84,7 @@ exports.getDelay = (req) => {
     UserDelay.findAll({
       where: {
         user_id: req.user.id,
-        delay_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('delay_date'), '%Y%m'), date),
+        delay_date: sequelize.where(sequelize.fn('DATE_FORMAT', sequelize.col('delay_date'), '%Y%m'), date),
       },
     }).then((result) => {
       systemLogger.info(msg.DB_INFO2);
@@ -148,7 +148,7 @@ exports.getUserDelay = (req) => {
     UserDelay.findAll({
       where: {
         user_id: req.body.id,
-        delay_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('delay_date'), '%Y%m'), date),
+        delay_date: sequelize.where(sequelize.fn('DATE_FORMAT', sequelize.col('delay_date'), '%Y%m'), date),
       },
     }).then((result) => {
       systemLogger.info(msg.DB_INFO2);
@@ -160,6 +160,7 @@ exports.getUserDelay = (req) => {
   });
 };
 
+// 遅刻予定削除
 exports.deleteDelay = (req) => {
   return new Promise((resolve, reject) => {
     UserDelay.destroy({

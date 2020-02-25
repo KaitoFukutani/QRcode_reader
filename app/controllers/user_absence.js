@@ -3,12 +3,12 @@ const msg = require('../logger/message');
 const systemLogger = log4js.getLogger('system');
 const UserAbsence = require('../models').user_absence;
 const Users = require('../models').users;
-const Sequelize = require('sequelize');
-const sequelize = require('../models').sequelize;
+const sequelize = require('sequelize');
+const Sequelize = require('../models').sequelize;
 
 // 欠席登録
 exports.addAbsence = (req) => {
-  return sequelize.transaction(async (tx) => {
+  return Sequelize.transaction(async (tx) => {
     const absence = await UserAbsence.findAll({
       where: {
         user_id: req.id,
@@ -48,7 +48,7 @@ exports.addAbsence = (req) => {
 
 // 同日登録済み欠席確認
 exports.checkAbsence = (req) => {
-  return sequelize.transaction(async (tx) => {
+  return Sequelize.transaction(async (tx) => {
     const absence = await UserAbsence.findAll({
       where: {
         absence_date: req,
@@ -84,7 +84,7 @@ exports.getAbsence = (req) => {
     UserAbsence.findAll({
       where: {
         user_id: req.user.id,
-        absence_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('absence_date'), '%Y%m'), date),
+        absence_date: sequelize.where(sequelize.fn('DATE_FORMAT', sequelize.col('absence_date'), '%Y%m'), date),
       },
     }).then((result) => {
       systemLogger.info(msg.DB_INFO2);
@@ -147,7 +147,7 @@ exports.getUserAbsence = (req) => {
     UserAbsence.findAll({
       where: {
         user_id: req.body.id,
-        absence_date: Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('absence_date'), '%Y%m'), date),
+        absence_date: sequelize.where(sequelize.fn('DATE_FORMAT', sequelize.col('absence_date'), '%Y%m'), date),
       },
     }).then((result) => {
       systemLogger.info(msg.DB_INFO2);

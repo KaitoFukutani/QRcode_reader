@@ -45,7 +45,7 @@ function snapshot({video, canvas, ctx}) { // eslint-disable-line
     // 連続して読み込むため使用していない
     // self.stopWebcam({video, canvas, ctx});
     let timerInterval;
-    fetch('/db/addattendance', {
+    fetch('/db/addAttendance', {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -62,19 +62,23 @@ function snapshot({video, canvas, ctx}) { // eslint-disable-line
       let soundFlg = 0;
       if (result.result == 'success') {
         icon = 'success';
-        title = '登録が完了しました。';
+        title = '登録が完了しました';
         sound = new Audio('../sound/success.mp3');
       } else if (result.result == 'error') {
         icon = 'error';
-        title = '登録に失敗しました。';
+        title = '登録に失敗しました';
         sound = new Audio('../sound/error.mp3');
       } else if (result.result == 'warning') {
         icon = 'warning';
-        title = '登録済みです。';
+        title = '登録済みのデータです';
+        sound = new Audio('../sound/warning.mp3');
+      } else if (result.result == 'old') {
+        icon = 'warning';
+        title = '古いQRコードです';
         sound = new Audio('../sound/warning.mp3');
       } else if (result.result == 'question') {
         icon = 'question';
-        title = '不明なQRコードです。';
+        title = '不明なQRコードです';
         sound = new Audio('../sound/question.mp3');
       }
       Swal.fire({

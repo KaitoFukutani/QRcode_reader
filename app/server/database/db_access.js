@@ -23,7 +23,7 @@ router.post('/signin', (req, res, next) => {
 });
 
 // 遅刻登録
-router.post('/adddelay', (req, res, next) => {
+router.post('/addDelay', (req, res, next) => {
   (async (req) => {
     const delay = {
       reason: req.body.reason,
@@ -38,7 +38,7 @@ router.post('/adddelay', (req, res, next) => {
 });
 
 // 欠席登録
-router.post('/addabsence', (req, res, next) => {
+router.post('/addAbsence', (req, res, next) => {
   (async (req) => {
     const absence = {
       reason: req.body.reason,
@@ -53,7 +53,7 @@ router.post('/addabsence', (req, res, next) => {
 });
 
 // 出欠データ登録
-router.post('/addattendance', (req, res, next) => {
+router.post('/addAttendance', (req, res, next) => {
   (async (req) => {
     let QRdata;
     if (req.body.QRdata.data.indexOf(process.env.QR_KEY) !== -1) {
@@ -63,7 +63,7 @@ router.post('/addattendance', (req, res, next) => {
         QRdata.key == process.env.QR_KEY
       ) {
         await userAttendanceController.addAttendance(QRdata).then((data) => {
-          if (data.result == 'warning') {
+          if (data.result == 'success') {
             const dt = new Date();
             dt.setHours(dt.getHours() + 9);
             const y = dt.getFullYear();
@@ -87,7 +87,7 @@ router.post('/addattendance', (req, res, next) => {
 });
 
 // 出欠データ取得
-router.post('/getattendance', (req, res, next) => {
+router.post('/getAttendance', (req, res, next) => {
   (async (req) => {
     const attendanceData = await userAttendanceController.getAttendance(req);
     const delayData = await userDelayController.getDelay(req);
@@ -102,7 +102,7 @@ router.post('/getattendance', (req, res, next) => {
 });
 
 // ユーザー出欠データ取得
-router.post('/getuserattendance', (req, res, next) => {
+router.post('/getUserAttendance', (req, res, next) => {
   (async (req) => {
     const attendanceData = await userAttendanceController.getUserAttendance(req);
     const delayData = await userDelayController.getUserDelay(req);
@@ -117,7 +117,7 @@ router.post('/getuserattendance', (req, res, next) => {
 });
 
 // 遅刻情報削除
-router.post('/deletedelay', (req, res, next) => {
+router.post('/deleteDelay', (req, res, next) => {
   (async (req) => {
     await userDelayController.deleteDelay(req);
     res.send();
@@ -125,7 +125,7 @@ router.post('/deletedelay', (req, res, next) => {
 });
 
 // 欠席情報削除
-router.post('/deleteabsence', (req, res, next) => {
+router.post('/deleteAbsence', (req, res, next) => {
   (async (req) => {
     await userAbsenceController.deleteAbsence(req);
     res.send();

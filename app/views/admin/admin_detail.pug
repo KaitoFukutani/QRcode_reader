@@ -16,7 +16,7 @@ block content
           th.w-50 MAIL
           td.p-2 #{userData.email}
         tr
-          th.w-50 STATUS
+          th.w-50 ROLE
             if userData.admin_flg == 1 && userData.reading_machine == 0
               td.p-2 管理者
             else if userData.admin_flg == 0 && userData.reading_machine == 1
@@ -24,10 +24,10 @@ block content
             else
               td.p-2 一般ユーザ
 
-    .text-muted.mt-5.ml-5.user-clndr
+    .text-muted.mt-5.ml-5.user-calendar
       #calendar
       .btn-area.mt-4
         button#prev.mr-4.btn.btn-outline-secondary(type='button') 前の月
         button#next.ml-4.btn.btn-outline-secondary(type='button') 次の月
 
-    script(src='/javascript/admin_clndr.js')
+    script(src='/javascript/admin_calendar.js')
