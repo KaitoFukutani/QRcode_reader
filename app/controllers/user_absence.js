@@ -159,6 +159,7 @@ exports.getUserAbsence = (req) => {
   });
 };
 
+// 欠席予定削除
 exports.deleteAbsence = (req) => {
   return new Promise((resolve, reject) => {
     UserAbsence.destroy({
