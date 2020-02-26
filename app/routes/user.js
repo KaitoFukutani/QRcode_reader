@@ -10,7 +10,7 @@ const isUserAuthenticated = require('../server/util/user_authenticated');
 const qrCreate = require('../public/javascript/create_qrcode');
 
 // ユーザーログインページ
-router.get('/signin', function(req, res) {
+router.get('/signin', (req, res) => {
   systemLogger.info(msg.ACCESS1);
   res.render('user/user_signin', {
     title: 'user-signin',
@@ -25,7 +25,7 @@ router.post('/signin', passport.authenticate('local', {
 }));
 
 // ユーザートップページ
-router.get('/home', isUserAuthenticated, function(req, res) {
+router.get('/home', isUserAuthenticated, (req, res) => {
   systemLogger.info(msg.ACCESS3);
   res.render('user/user_home', {
     title: 'user-home',
@@ -33,7 +33,7 @@ router.get('/home', isUserAuthenticated, function(req, res) {
 });
 
 // QRコード生成ページ
-router.get('/create_qr', isUserAuthenticated, function(req, res) {
+router.get('/create_qr', isUserAuthenticated, (req, res) => {
   systemLogger.info(msg.ACCESS4);
   res.render('user/user_createqr', {
     title: 'create-qrcode',
@@ -42,7 +42,7 @@ router.get('/create_qr', isUserAuthenticated, function(req, res) {
 });
 
 // 出席QRコード生成
-router.get('/user_inqr', isUserAuthenticated, function(req, res) {
+router.get('/user_inqr', isUserAuthenticated, (req, res) => {
   systemLogger.info(msg.ACCESS5);
   const qrcode = qrCreate.createQrCode(req.user.id, 'in');
   res.render('user/user_qrcode', {
@@ -52,7 +52,7 @@ router.get('/user_inqr', isUserAuthenticated, function(req, res) {
 });
 
 // 退席QRコード生成
-router.get('/user_outqr', isUserAuthenticated, function(req, res) {
+router.get('/user_outqr', isUserAuthenticated, (req, res) => {
   systemLogger.info(msg.ACCESS5);
   const qrcode = qrCreate.createQrCode(req.user.id, 'out');
   res.render('user/user_qrcode', {
@@ -62,7 +62,7 @@ router.get('/user_outqr', isUserAuthenticated, function(req, res) {
 });
 
 // 遅刻登録ページ
-router.get('/delay', isUserAuthenticated, function(req, res) {
+router.get('/delay', isUserAuthenticated, (req, res) => {
   (async () => {
     systemLogger.info(msg.ACCESS6);
     res.render('user/user_delay', {
@@ -72,7 +72,7 @@ router.get('/delay', isUserAuthenticated, function(req, res) {
 });
 
 // 欠席登録ページ
-router.get('/absence', isUserAuthenticated, function(req, res) {
+router.get('/absence', isUserAuthenticated, (req, res) => {
   systemLogger.info(msg.ACCESS7);
   res.render('user/user_absence', {
     title: 'user-abscece',
@@ -80,11 +80,10 @@ router.get('/absence', isUserAuthenticated, function(req, res) {
 });
 
 // 遅刻登録ページ
-router.get('/delaylist', isUserAuthenticated, function(req, res) {
+router.get('/delaylist', isUserAuthenticated, (req, res) => {
   (async () => {
     systemLogger.info(msg.ACCESS8);
     const userDelayList = await userDelayController.getUserDelayList(req.user.id);
-    console.log(userDelayList)
     const dt = new Date();
     dt.setHours(dt.getHours() + 9);
     const y = dt.getFullYear();
@@ -101,11 +100,10 @@ router.get('/delaylist', isUserAuthenticated, function(req, res) {
 });
 
 // 欠席登録ページ
-router.get('/absencelist', isUserAuthenticated, function(req, res) {
+router.get('/absencelist', isUserAuthenticated, (req, res) => {
   (async () => {
     systemLogger.info(msg.ACCESS8);
     const userAbsenceList = await userAbsenceController.getAbsenceList(req.user.id);
-    console.log(userAbsenceList)
     const dt = new Date();
     dt.setHours(dt.getHours() + 9);
     const y = dt.getFullYear();

@@ -150,12 +150,12 @@ document.addEventListener('click', function(e) {
   if (delayList[clickDay]) {
     Swal.fire(
         e.target.dataset.date,
-        delayList[clickDay].reason,
+        delayList[clickDay].reason.replace(/</g, '&lt;').replace(/>/g, '&gt;'),
     );
   } else if (absenceList[clickDay]) {
     Swal.fire(
         e.target.dataset.date,
-        absenceList[clickDay].reason,
+        absenceList[clickDay].reason.replace(/</g, '&lt;').replace(/>/g, '&gt;'),
     );
   } else if (comeList[clickDay + '_in']) {
     if (comeList[clickDay + '_out']) {

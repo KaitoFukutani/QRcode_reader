@@ -10,7 +10,7 @@ const userAbsenceController = require('../controllers/user_absence');
 const isMasterAuthenticated = require('../server/util/master_authenticated');
 
 // 管理者ログインページ
-router.get('/signin', function(req, res) {
+router.get('/signin', (req, res) => {
   systemLogger.info(msg.ACCESS1);
   res.render('admin/admin_signin', {
     title: 'admin-signin',
@@ -25,7 +25,7 @@ router.post('/signin', passport.authenticate('local', {
 }));
 
 // 管理者トップページ
-router.get('/home', isMasterAuthenticated, function(req, res) {
+router.get('/home', isMasterAuthenticated, (req, res) => {
   (async () => {
     const userList = await usersController.getUser();
     systemLogger.info(msg.ACCESS3);
@@ -37,7 +37,7 @@ router.get('/home', isMasterAuthenticated, function(req, res) {
 });
 
 // ユーザ詳細ページ
-router.get('/detail', isMasterAuthenticated, function(req, res) {
+router.get('/detail', isMasterAuthenticated, (req, res) => {
   (async () => {
     const reg = new RegExp(/^[0-9]*$/);
     if (req.query.id && reg.test(req.query.id)) {
@@ -57,7 +57,7 @@ router.get('/detail', isMasterAuthenticated, function(req, res) {
 });
 
 // 遅刻予定一覧
-router.get('/delay', isMasterAuthenticated, function(req, res) {
+router.get('/delay', isMasterAuthenticated, (req, res) => {
   (async () => {
     const delayList = await userDelayController.getAllDelay();
     const dt = new Date();
@@ -75,7 +75,7 @@ router.get('/delay', isMasterAuthenticated, function(req, res) {
 });
 
 // 欠席予定一覧
-router.get('/absence', isMasterAuthenticated, function(req, res) {
+router.get('/absence', isMasterAuthenticated, (req, res) => {
   (async () => {
     const absenceList = await userAbsenceController.getAllAbsence();
     const dt = new Date();

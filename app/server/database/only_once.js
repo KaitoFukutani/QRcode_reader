@@ -9,9 +9,7 @@ require('dotenv').config();
 systemLogger.info('*************************');
 systemLogger.info(msg.INFO_5);
 
-console.log('%%%%%%%%%%%%%%%%%');
 console.log(process.env.MASTER_EMAIL);
-console.log('%%%%%%%%%%%%%%%%%');
 // マスターカウントがなかったらインサート
 Users.findAll({
   where: {
@@ -31,9 +29,7 @@ Users.findAll({
   console.error(err);
 });
 
-console.log('%%%%%%%%%%%%%%%%%');
 console.log(process.env.READER_EMAIL);
-console.log('%%%%%%%%%%%%%%%%%');
 // マスターカウントがなかったらインサート
 Users.findAll({
   where: {

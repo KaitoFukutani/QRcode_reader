@@ -32,7 +32,6 @@ router.post('/addDelay', (req, res) => {
     };
     await userAbsenceController.checkAbsence(delay.date);
     const result = await userDelayController.addDelay(delay);
-    console.log(delay);
     res.send(result);
   })();
 });
@@ -47,7 +46,6 @@ router.post('/addAbsence', (req, res) => {
     };
     await userDelayController.checkDelay(absence.date);
     const result = await userAbsenceController.addAbsence(absence);
-    console.log(absence);
     res.send(result);
   })();
 });
