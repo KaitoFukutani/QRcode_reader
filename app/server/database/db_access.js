@@ -10,8 +10,8 @@ const userAbsenceController = require('../../controllers/user_absence');
 require('dotenv').config();
 
 // ログイン認証ユーザー取得
-router.post('/signin', (req, res, next) => {
-  (async (req) => {
+router.post('/signin', (req, res) => {
+  (async () => {
     systemLogger.info(msg.ACCESS1);
     usersController.userCheck(req.body).then((data) => {
       res.send(data);
@@ -19,12 +19,12 @@ router.post('/signin', (req, res, next) => {
       systemLogger.error(msg.DB_ERROR2 + err);
       res.send(err);
     });
-  })(req);
+  })();
 });
 
 // 遅刻登録
-router.post('/addDelay', (req, res, next) => {
-  (async (req) => {
+router.post('/addDelay', (req, res) => {
+  (async () => {
     const delay = {
       reason: req.body.reason,
       date: req.body.date,
@@ -34,12 +34,12 @@ router.post('/addDelay', (req, res, next) => {
     const result = await userDelayController.addDelay(delay);
     console.log(delay);
     res.send(result);
-  })(req);
+  })();
 });
 
 // 欠席登録
-router.post('/addAbsence', (req, res, next) => {
-  (async (req) => {
+router.post('/addAbsence', (req, res) => {
+  (async () => {
     const absence = {
       reason: req.body.reason,
       date: req.body.date,
@@ -49,15 +49,14 @@ router.post('/addAbsence', (req, res, next) => {
     const result = await userAbsenceController.addAbsence(absence);
     console.log(absence);
     res.send(result);
-  })(req);
+  })();
 });
 
 // 出欠データ登録
-router.post('/addAttendance', (req, res, next) => {
-  (async (req) => {
-    let QRdata;
+router.post('/addAttendance', (req, res) => {
+  (async () => {
     if (req.body.QRdata.data.indexOf(process.env.QR_KEY) !== -1) {
-      QRdata = JSON.parse(req.body.QRdata.data);
+      const QRdata = JSON.parse(req.body.QRdata.data);
       if (
         typeof QRdata.key != 'undefined' &&
         QRdata.key == process.env.QR_KEY
@@ -83,12 +82,12 @@ router.post('/addAttendance', (req, res, next) => {
     } else {
       res.send({result: 'question'});
     }
-  })(req);
+  })();
 });
 
 // 出欠データ取得
-router.post('/getAttendance', (req, res, next) => {
-  (async (req) => {
+router.post('/getAttendance', (req, res) => {
+  (async () => {
     const attendanceData = await userAttendanceController.getAttendance(req);
     const delayData = await userDelayController.getDelay(req);
     const absenceData = await userAbsenceController.getAbsence(req);
@@ -98,12 +97,12 @@ router.post('/getAttendance', (req, res, next) => {
       absenceData: absenceData,
     };
     res.send(userData);
-  })(req);
+  })();
 });
 
 // ユーザー出欠データ取得
-router.post('/getUserAttendance', (req, res, next) => {
-  (async (req) => {
+router.post('/getUserAttendance', (req, res) => {
+  (async () => {
     const attendanceData = await userAttendanceController.getUserAttendance(req);
     const delayData = await userDelayController.getUserDelay(req);
     const absenceData = await userAbsenceController.getUserAbsence(req);
@@ -113,23 +112,23 @@ router.post('/getUserAttendance', (req, res, next) => {
       absenceData: absenceData,
     };
     res.send(userData);
-  })(req);
+  })();
 });
 
 // 遅刻情報削除
-router.post('/deleteDelay', (req, res, next) => {
-  (async (req) => {
+router.post('/deleteDelay', (req, res) => {
+  (async () => {
     await userDelayController.deleteDelay(req);
     res.send();
-  })(req);
+  })();
 });
 
 // 欠席情報削除
-router.post('/deleteAbsence', (req, res, next) => {
-  (async (req) => {
+router.post('/deleteAbsence', (req, res) => {
+  (async () => {
     await userAbsenceController.deleteAbsence(req);
     res.send();
-  })(req);
+  })();
 });
 
 module.exports = router;

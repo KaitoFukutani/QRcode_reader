@@ -7,13 +7,11 @@ const systemLogger = log4js.getLogger('system');
 const isReaderAuthenticated = require('../server/util/reader_authenticated');
 
 // QRログインページ
-router.get('/signin', function(req, res, next) {
-  (async () => {
-    systemLogger.info(msg.ACCESS1);
-    res.render('reader/reader_signin', {
-      title: 'reader-signin',
-    });
-  })();
+router.get('/signin', function(req, res) {
+  systemLogger.info(msg.ACCESS1);
+  res.render('reader/reader_signin', {
+    title: 'reader-signin',
+  });
 });
 
 // QRログイン
@@ -24,21 +22,17 @@ router.post('/signin', passport.authenticate('local', {
 }));
 
 // QRトップページ
-router.get('/home', isReaderAuthenticated, function(req, res, next) {
-  (async () => {
-    systemLogger.info(msg.ACCESS3);
-    res.render('reader/reader_home', {
-      title: 'reader-reader',
-    });
-  })();
+router.get('/home', isReaderAuthenticated, function(req, res) {
+  systemLogger.info(msg.ACCESS3);
+  res.render('reader/reader_home', {
+    title: 'reader-reader',
+  });
 });
 
 // QRログアウト
 router.get('/logout', (req, res) => {
-  (async () => {
-    req.logout();
-    res.redirect('/reader/signin');
-  })();
+  req.logout();
+  res.redirect('/reader/signin');
 });
 
 module.exports = router;

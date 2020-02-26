@@ -10,13 +10,11 @@ const userAbsenceController = require('../controllers/user_absence');
 const isMasterAuthenticated = require('../server/util/master_authenticated');
 
 // 管理者ログインページ
-router.get('/signin', function(req, res, next) {
-  (async () => {
-    systemLogger.info(msg.ACCESS1);
-    res.render('admin/admin_signin', {
-      title: 'admin-signin',
-    });
-  })();
+router.get('/signin', function(req, res) {
+  systemLogger.info(msg.ACCESS1);
+  res.render('admin/admin_signin', {
+    title: 'admin-signin',
+  });
 });
 
 // 管理者ログイン
@@ -27,7 +25,7 @@ router.post('/signin', passport.authenticate('local', {
 }));
 
 // 管理者トップページ
-router.get('/home', isMasterAuthenticated, function(req, res, next) {
+router.get('/home', isMasterAuthenticated, function(req, res) {
   (async () => {
     const userList = await usersController.getUser();
     systemLogger.info(msg.ACCESS3);
@@ -39,7 +37,7 @@ router.get('/home', isMasterAuthenticated, function(req, res, next) {
 });
 
 // ユーザ詳細ページ
-router.get('/detail', isMasterAuthenticated, function(req, res, next) {
+router.get('/detail', isMasterAuthenticated, function(req, res) {
   (async () => {
     if (req.query.id) {
       const userDetail = await usersController.getDetail(req.query.id);
@@ -54,7 +52,7 @@ router.get('/detail', isMasterAuthenticated, function(req, res, next) {
 });
 
 // 遅刻予定一覧
-router.get('/delay', isMasterAuthenticated, function(req, res, next) {
+router.get('/delay', isMasterAuthenticated, function(req, res) {
   (async () => {
     const delayList = await userDelayController.getAllDelay();
     const dt = new Date();
@@ -72,7 +70,7 @@ router.get('/delay', isMasterAuthenticated, function(req, res, next) {
 });
 
 // 欠席予定一覧
-router.get('/absence', isMasterAuthenticated, function(req, res, next) {
+router.get('/absence', isMasterAuthenticated, function(req, res) {
   (async () => {
     const absenceList = await userAbsenceController.getAllAbsence();
     const dt = new Date();
@@ -91,10 +89,8 @@ router.get('/absence', isMasterAuthenticated, function(req, res, next) {
 
 // 管理者ログアウト
 router.get('/logout', (req, res) => {
-  (async () => {
-    req.logout();
-    res.redirect('/admin/signin');
-  })();
+  req.logout();
+  res.redirect('/admin/signin');
 });
 
 module.exports = router;

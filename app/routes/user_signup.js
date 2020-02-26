@@ -8,7 +8,7 @@ const systemLogger = log4js.getLogger('system');
 const bcrypt = require('../server/util/bcrypt');
 
 // ユーザー作成ページ
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   systemLogger.info(msg.ACCESS2);
   res.render('user/user_signup', {
     title: 'user_signup',
@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 });
 
 // ユーザー作成
-router.post('/', function(req, res, next) {
+router.post('/', function(req, res) {
   (async () => {
     if (validation.new(req.body)) {
       const check = await usersController.userCheck(req.body);
