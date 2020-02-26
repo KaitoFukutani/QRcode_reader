@@ -71,7 +71,7 @@ exports.getDetail = (req) => {
         id: req,
       },
     }).then((data) => {
-      resolve(data[0].dataValues);
+      resolve(data);
     }).catch((err) => {
       systemLogger.error(msg.ERR_5 + err);
       reject(err);

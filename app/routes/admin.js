@@ -39,12 +39,17 @@ router.get('/home', isMasterAuthenticated, function(req, res) {
 // ユーザ詳細ページ
 router.get('/detail', isMasterAuthenticated, function(req, res) {
   (async () => {
-    if (req.query.id) {
+    const reg = new RegExp(/^[0-9]*$/);
+    if (req.query.id && reg.test(req.query.id)) {
       const userDetail = await usersController.getDetail(req.query.id);
-      res.render('admin/admin_detail', {
-        title: 'admin-detail',
-        userData: userDetail,
-      });
+      if (userDetail.length) {
+        res.render('admin/admin_detail', {
+          title: 'admin-detail',
+          userData: userDetail[0].dataValues,
+        });
+      } else {
+        res.redirect('/admin/home');
+      }
     } else {
       res.redirect('/admin/home');
     }
