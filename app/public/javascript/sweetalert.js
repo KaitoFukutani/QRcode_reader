@@ -201,3 +201,28 @@ function deleteAbsenceModal(absence_date) { // eslint-disable-line
     }
   });
 }
+
+function calemdarInfoModal() { // eslint-disable-line
+  Swal.fire({
+    icon: 'info',
+    title: 'カレンダーの表示について',
+    html: '<ul class="ul-info">'+
+            '<li class="attendance-info text-muted">出席</li>'+
+            '<li class="delay-info text-muted">遅刻</li>'+
+            '<li class="absence-info text-muted">欠席</>'+
+          '</ul>',
+  });
+}
+
+function adminPlanInfoModal() { // eslint-disable-line
+  Swal.fire({
+    icon: 'info',
+    title: '予定一覧の表示について',
+    html: '<ul class="ul-info">'+
+            '<li class="white-info text-muted">当日以降の予定</li>'+
+            '<li class="gray-info text-muted">過去の予定</li>'+
+          '</ul>',
+  });
+}
+
+

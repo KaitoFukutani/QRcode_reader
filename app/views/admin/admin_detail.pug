@@ -4,30 +4,34 @@ block content
   // Page Content
   #header-area
     include ../utils/admin_header.pug
-    .text-muted.user-data.mt-5.ml-5
-      table
-        tr
-          th.w-50 ID
-          td#user-id.p-2 #{userData.id}
-        tr
-          th.w-50 NAME
-          td.p-2 #{userData.name}
-        tr
-          th.w-50 MAIL
-          td.p-2 #{userData.email}
-        tr
-          th.w-50 ROLE
-            if userData.admin_flg == 1 && userData.reading_machine == 0
-              td.p-2 管理者
-            else if userData.admin_flg == 0 && userData.reading_machine == 1
-              td.p-2 QRコードリーダー
-            else
-              td.p-2 一般ユーザ
+    .container.col-8.mt-5.text-muted.text-center
+      p.h3.text-center ユーザ詳細
+        button.btn(onclick='calemdarInfoModal()')
+          img.info_icon.mb-2(src="/image/info.png")
+      .text-muted.user-data.mt-5.ml-5
+        table
+          tr
+            th.w-50 ID
+            td.user-data#user-id.p-2.ml-3 #{userData.id}
+          tr
+            th.w-50 NAME
+            td.user-data.p-2.ml-3 #{userData.name}
+          tr
+            th.w-50 MAIL
+            td.user-data.p-2.ml-3 #{userData.email}
+          tr
+            th.w-50 ROLE
+              if userData.admin_flg == 1 && userData.reading_machine == 0
+                td.user-data.p-2.ml-3 管理者
+              else if userData.admin_flg == 0 && userData.reading_machine == 1
+                td.user-data.p-2.ml-3 QRコードリーダー
+              else
+                td.user-data.p-2.ml-3 一般ユーザ
 
-    .text-muted.mt-5.ml-5.user-calendar
-      #calendar
-      .btn-area.mt-4
-        button#prev.mr-4.btn.btn-outline-secondary(type='button') 前の月
-        button#next.ml-4.btn.btn-outline-secondary(type='button') 次の月
+      .text-muted.mt-5.ml-5.user-calendar
+        #calendar
+        .btn-area.mt-4
+          button#prev.mr-4.btn.btn-outline-secondary(type='button') 前の月
+          button#next.ml-4.btn.btn-outline-secondary(type='button') 次の月
 
-    script(src='/javascript/admin_calendar.js')
+      script(src='/javascript/admin_calendar.js')

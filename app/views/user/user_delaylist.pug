@@ -6,6 +6,8 @@ block content
     include ../utils/user_header.pug
     .container.col-8.mt-5.text-muted
       h2.mb-4 遅刻予定一覧
+        button.btn(onclick='adminPlanInfoModal()')
+          img.info_icon.mb-2(src="/image/info.png")
       table.table.table-bordered.text-muted
         thead.thead.bg-light
           tr
@@ -21,15 +23,17 @@ block content
               - var comparisonToday = today.replace(/-/g, '')
               if comparison >= comparisonToday
                 tr
-                  td.align-middle.p-2 #{delay_date}
-                  td.align-middle.p-2 #{userDelay[i].delay_reason}
-                  td.align-middle.p-2.delete_icon
+                  td.align-middle #{delay_date}
+                  td.align-middle #{userDelay[i].delay_reason}
+                  td.align-middle.delete_icon
                     button.btn(onclick='deleteDelayModal(\''+ delay_date +'\')')
                       img.delete_c(src="/image/delete_c.png")
                       img.delete_o(src="/image/delete_o.png")
               else
                 tr.past-day
-                  td.align-middle.p-2 #{delay_date}
-                  td.align-middle.p-2 #{userDelay[i].delay_reason}
-                  td.align-middle.p-2.delete_icon
-                    img.delete_c(src="/image/delete_c.png")
+                  td.align-middle #{delay_date}
+                  td.align-middle #{userDelay[i].delay_reason}
+                  td.align-middle.delete_icon
+                    button.btn
+                      img.delete_c(src="/image/delete_c.png")
+                      img.delete_o(src="/image/delete_c.png")
