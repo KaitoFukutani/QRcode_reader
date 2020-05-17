@@ -1,0 +1,8 @@
+.env
+.DS_Store
+.vscode
+docker/mysql/db/mysql_data/*
+logs
+*/node_modules/
+app/public/tmp/*
+!/app/public/tmp/.gitkeep

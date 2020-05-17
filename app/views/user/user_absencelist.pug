@@ -1,0 +1,39 @@
+extends ../layout
+
+block content
+  // Page Content
+  #header-area
+    include ../utils/user_header.pug
+    .container.col-8.mt-5.text-muted
+      h2.mb-4 欠席予定一覧
+        button.btn(onclick='adminPlanInfoModal()')
+          img.info_icon.mb-2(src="/image/info.png")
+      table.table.table-bordered.text-muted
+        thead.thead.bg-light
+          tr
+            th(scope='col') DATE
+            th(scope='col') RASON
+            th(scope='col') DELETE
+          tbody
+            - for (let i = 0; i < userAbsence.length; i++)
+              - var getTime = userAbsence[i].absence_date
+              - var format = getTime.toISOString()
+              - var absence_date = format.split('T')[0]
+              - var comparison = absence_date.replace(/-/g, '')
+              - var comparisonToday = today.replace(/-/g, '')
+              if comparison >= comparisonToday
+                tr
+                  td.align-middle #{absence_date}
+                  td.align-middle #{userAbsence[i].absence_reason}
+                  td.align-middle.delete_icon
+                    button.btn(onclick='deleteAbsenceModal(\''+ absence_date +'\')')
+                      img.delete_c(src="/image/delete_c.png")
+                      img.delete_o(src="/image/delete_o.png")
+              else
+                tr.past-day
+                  td.align-middle #{absence_date}
+                  td.align-middle #{userAbsence[i].absence_reason}
+                  td.align-middle.delete_icon
+                    button.btn
+                      img.delete_c(src="/image/delete_c.png")
+                      img.delete_o(src="/image/delete_c.png")

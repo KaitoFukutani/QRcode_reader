@@ -1,0 +1,18 @@
+nav
+  .header-logo-menu
+    #nav-drawer
+      input#nav-input.nav-unshown(type="checkbox")
+      label#nav-open(for="nav-input")
+        span
+      label#nav-close.nav-unshown(for="nav-input")
+      #nav-content
+        ul.list-unstyled.list-group
+          li.list-group-item
+            a.header-list-item(href='/admin/home') ホーム
+          li.list-group-item
+            a.header-list-item(href='/admin/delay') 遅刻予定一覧
+          li.list-group-item
+            a.header-list-item(href='/admin/absence') 欠席予定一覧
+          li.list-group-item
+            a.header-list-item(href='/admin/logout') ログアウト
+    .logo-erea

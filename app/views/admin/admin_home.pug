@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+  // Page Content
+  #header-area
+    include ../utils/admin_header.pug
+    .container.col-8.mt-5.text-muted
+      h2.mb-4 生徒データ一覧
+      table.table.table-bordered.text-muted
+        thead.thead.bg-light
+          tr
+            th(scope='col') ID
+            th(scope='col') NAME
+            th(scope='col') MAIL
+            th(scope='col') DETAIL
+          tbody
+            - for (let i = 0; i < users.length; i++)
+              tr
+                td.align-middle.p-2 #{users[i].id}
+                td.align-middle.p-2 #{users[i].name}
+                td.align-middle.p-2 #{users[i].email}
+                td.align-middle.p-2
+                  a(href=`/admin/detail?id=${users[i].id}`)
+                    img.detail-icon(src="/image/detail.png")

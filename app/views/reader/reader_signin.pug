@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+  form.reader_signin(method='POST', action='/reader/signin')
+    p.mb-3.h2.signin-title Reader Signin
+    input(type='email', placeholder='Email', name='email', required)
+    input(type='password', placeholder='Password', name='password', required)
+    button(type='submit') Signin

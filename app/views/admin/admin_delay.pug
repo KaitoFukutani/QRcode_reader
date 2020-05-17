@@ -1,0 +1,36 @@
+extends ../layout
+
+block content
+  // Page Content
+  #header-area
+    include ../utils/admin_header.pug
+    .container.col-8.mt-5.text-muted
+      h2.mb-3 遅刻予定一覧
+        button.btn(onclick='adminPlanInfoModal()')
+          img.info_icon.mb-2(src="/image/info.png")
+      table.table.table-bordered.text-muted
+        thead.thead.bg-light
+          tr
+            th(scope='col') DATE
+            th(scope='col') USER ID
+            th(scope='col') USER NAME
+            th(scope='col') REASON
+          tbody
+            - for (let i = 0; i < delay.length; i++)
+              - var getTime = delay[i].delay_date
+              - var format = getTime.toISOString()
+              - var delay_date = format.split('T')[0]
+              - var comparison = delay_date.replace(/-/g, '')
+              - var comparisonToday = today.replace(/-/g, '')
+              if comparison >= comparisonToday
+                tr
+                  td.align-middle.p-2 #{delay_date}
+                  td.align-middle.p-2 #{delay[i].user_id}
+                  td.align-middle.p-2 #{delay[i]['user.name']}
+                  td.align-middle.p-2 #{delay[i].delay_reason}
+              else
+                tr.past-day
+                  td.align-middle.p-2 #{delay_date}
+                  td.align-middle.p-2 #{delay[i].user_id}
+                  td.align-middle.p-2 #{delay[i]['user.name']}
+                  td.align-middle.p-2 #{delay[i].delay_reason}

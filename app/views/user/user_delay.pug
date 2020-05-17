@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  // Page Content
+  #header-area
+    include ../utils/user_header.pug
+
+    .text-muted.h3.mb-5.mt-5.text-center 遅刻を登録します
+    form.add-status.container.col-2(action='/user/add_delay', method='POST')
+      .row
+        textarea#delay_reason.reason(name='reason' type='textarea' placeholder="遅刻理由" onKeyUp="countLength(value, 'textlength2')")
+      .row
+        p#textlength2 0/100文字
+      .row
+        input#delay_date.mt-3(name='date' type='date')
+      .row
+        button.mt-5.qr-btn.btn.btn-outline-secondary(type="button" onclick='AddDelayModal()') 登録

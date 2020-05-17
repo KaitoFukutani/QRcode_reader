@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+  form.user_signin(method='POST', action='/user/signin')
+    p.mb-3.h2.signin-title User Signin
+    input.input-group-lg(type='email', placeholder='Email', name='email', required)
+    input.input-group-lg(type='password', placeholder='Password', name='password', required)
+    button(type='submit') Signin
+    button(type='button')
+      a.user_create(href='/user_signup') Signup

@@ -1,0 +1,24 @@
+nav
+  .header-logo-menu
+    #nav-drawer
+      input#nav-input.nav-unshown(type="checkbox")
+      label#nav-open(for="nav-input")
+        span
+      label#nav-close.nav-unshown(for="nav-input")
+      #nav-content
+        ul.list-unstyled.list-group
+          li.list-group-item
+            a.header-list-item(href='/user/home') ホーム
+          li.list-group-item
+            a.header-list-item(href='/user/create_qr') 出席登録
+          li.list-group-item
+            a.header-list-item(href='/user/delay') 遅刻登録
+          li.list-group-item
+            a.header-list-item(href='/user/absence') 欠席登録
+          li.list-group-item
+            a.header-list-item(href='/user/delaylist') 遅刻予定一覧
+          li.list-group-item
+            a.header-list-item(href='/user/absencelist') 欠席予定一覧
+          li.list-group-item
+            a.header-list-item(href='/user/logout') ログアウト
+    .logo-erea
